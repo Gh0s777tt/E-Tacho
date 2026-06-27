@@ -1,0 +1,71 @@
+# ===== Dart / Flutter =====
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+**/doc/api/
+**/.dart_tool/
+coverage/
+*.lcov
+
+# Package lock files: commit the app's, ignore packages' (handled per-dir if needed)
+
+# ===== Symbolication / obfuscation =====
+app.*.symbols
+app.*.map.json
+
+# ===== IDE / Editor =====
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.code-workspace
+.history/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+*.swp
+
+# ===== Android =====
+**/android/**/gradle-wrapper.jar
+**/android/.gradle/
+.gradle/
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/key.properties
+*.keystore
+*.jks
+
+# ===== iOS / macOS =====
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.pbxuser
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# ===== Secrets / env =====
+.env
+.env.*
+!.env.example
+*.env
+secrets.dart
+**/supabase/.env
+service-account*.json
+GoogleService-Info.plist
+google-services.json
+
+# ===== Melos =====
+.melos_tool/
+pubspec_overrides.yaml
