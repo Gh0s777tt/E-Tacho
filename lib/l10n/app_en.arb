@@ -66,5 +66,17 @@
   },
   "yes": "Yes",
   "no": "No",
+  "authSignInTitle": "Sign in",
+  "authRegisterTitle": "Create account",
+  "email": "Email",
+  "password": "Password",
+  "signIn": "Sign in",
+  "register": "Register",
+  "signInWithGoogle": "Continue with Google",
+  "signInWithApple": "Continue with Apple",
+  "authToggleToRegister": "No account? Register",
+  "authToggleToSignIn": "Have an account? Sign in",
+  "authError": "Something went wrong. Check your details and try again.",
+  "signOut": "Sign out",
   "disclaimer": "A supporting tool only — it does not replace the tachograph and does not guarantee compliance."
 }

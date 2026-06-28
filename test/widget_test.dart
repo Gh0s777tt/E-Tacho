@@ -1,4 +1,5 @@
 import 'package:e_tacho/src/app.dart';
+import 'package:e_tacho/src/auth/auth_service.dart';
 import 'package:e_tacho/src/data/activity_repository.dart';
 import 'package:e_tacho/src/data/preferences_store.dart';
 import 'package:e_tacho/src/detection/driving_detector.dart';
@@ -32,6 +33,9 @@ void main() {
               .overrideWithValue(_NoopNotificationService()),
           homeWidgetServiceProvider
               .overrideWithValue(_NoopHomeWidgetService()),
+          authServiceProvider.overrideWithValue(
+            StubAuthService(initialUser: const AuthUser(id: 'test')),
+          ),
         ],
         child: const ETachoApp(),
       ),
@@ -65,6 +69,9 @@ void main() {
               .overrideWithValue(_NoopNotificationService()),
           homeWidgetServiceProvider
               .overrideWithValue(_NoopHomeWidgetService()),
+          authServiceProvider.overrideWithValue(
+            StubAuthService(initialUser: const AuthUser(id: 'test')),
+          ),
         ],
         child: const ETachoApp(),
       ),
@@ -94,6 +101,9 @@ void main() {
               .overrideWithValue(_NoopNotificationService()),
           homeWidgetServiceProvider
               .overrideWithValue(_NoopHomeWidgetService()),
+          authServiceProvider.overrideWithValue(
+            StubAuthService(initialUser: const AuthUser(id: 'test')),
+          ),
         ],
         child: const ETachoApp(),
       ),
@@ -128,6 +138,9 @@ void main() {
               .overrideWithValue(_NoopNotificationService()),
           homeWidgetServiceProvider
               .overrideWithValue(_NoopHomeWidgetService()),
+          authServiceProvider.overrideWithValue(
+            StubAuthService(initialUser: const AuthUser(id: 'test')),
+          ),
         ],
         child: const ETachoApp(),
       ),
@@ -159,13 +172,15 @@ void main() {
               .overrideWithValue(_NoopNotificationService()),
           homeWidgetServiceProvider
               .overrideWithValue(_NoopHomeWidgetService()),
+          authServiceProvider.overrideWithValue(
+            StubAuthService(initialUser: const AuthUser(id: 'test')),
+          ),
           drivingDetectorProvider.overrideWithValue(detector),
         ],
         child: const ETachoApp(),
       ),
     );
-    await tester.pump();
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     detector.simulate(DateTime.utc(2034, 12, 31, 8, 14));
     await tester.pumpAndSettle();
@@ -175,6 +190,38 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Driving'), findsWidgets);
+  });
+
+  testWidgets('auth gate: signing in reaches the home screen', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          nowProvider.overrideWith(
+            (ref) => Stream<DateTime>.value(DateTime.utc(2035, 1, 1)),
+          ),
+          activityRepositoryProvider
+              .overrideWithValue(InMemoryActivityRepository()),
+          preferencesStoreProvider.overrideWithValue(
+            InMemoryPreferencesStore(true),
+          ),
+          notificationServiceProvider
+              .overrideWithValue(_NoopNotificationService()),
+          homeWidgetServiceProvider
+              .overrideWithValue(_NoopHomeWidgetService()),
+          authServiceProvider.overrideWithValue(StubAuthService()),
+        ],
+        child: const ETachoApp(),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.byKey(const ValueKey('submit')), findsOneWidget);
+    await tester.enterText(find.byKey(const ValueKey('email')), 'a@b.com');
+    await tester.enterText(find.byKey(const ValueKey('password')), 'secret');
+    await tester.tap(find.byKey(const ValueKey('submit')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('E-Tacho'), findsOneWidget);
   });
 }
 

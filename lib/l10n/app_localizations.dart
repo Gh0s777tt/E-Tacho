@@ -398,6 +398,78 @@ abstract class AppLocalizations {
   /// **'No'**
   String get no;
 
+  /// No description provided for @authSignInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get authSignInTitle;
+
+  /// No description provided for @authRegisterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account'**
+  String get authRegisterTitle;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get signIn;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @signInWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get signInWithGoogle;
+
+  /// No description provided for @signInWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get signInWithApple;
+
+  /// No description provided for @authToggleToRegister.
+  ///
+  /// In en, this message translates to:
+  /// **'No account? Register'**
+  String get authToggleToRegister;
+
+  /// No description provided for @authToggleToSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Have an account? Sign in'**
+  String get authToggleToSignIn;
+
+  /// No description provided for @authError.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Check your details and try again.'**
+  String get authError;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOut;
+
   /// No description provided for @disclaimer.
   ///
   /// In en, this message translates to:

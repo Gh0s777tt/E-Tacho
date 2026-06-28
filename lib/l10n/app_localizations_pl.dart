@@ -167,6 +167,43 @@ class AppLocalizationsPl extends AppLocalizations {
   String get no => 'Nie';
 
   @override
+  String get authSignInTitle => 'Logowanie';
+
+  @override
+  String get authRegisterTitle => 'Utwórz konto';
+
+  @override
+  String get email => 'E-mail';
+
+  @override
+  String get password => 'Hasło';
+
+  @override
+  String get signIn => 'Zaloguj';
+
+  @override
+  String get register => 'Zarejestruj';
+
+  @override
+  String get signInWithGoogle => 'Kontynuuj z Google';
+
+  @override
+  String get signInWithApple => 'Kontynuuj z Apple';
+
+  @override
+  String get authToggleToRegister => 'Nie masz konta? Zarejestruj się';
+
+  @override
+  String get authToggleToSignIn => 'Masz konto? Zaloguj się';
+
+  @override
+  String get authError =>
+      'Coś poszło nie tak. Sprawdź dane i spróbuj ponownie.';
+
+  @override
+  String get signOut => 'Wyloguj';
+
+  @override
   String get disclaimer =>
       'Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami.';
 }

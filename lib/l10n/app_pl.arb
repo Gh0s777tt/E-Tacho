@@ -50,5 +50,17 @@
   "detectDrivingBody": "Rozpocząć jazdę od {time}?",
   "yes": "Tak",
   "no": "Nie",
+  "authSignInTitle": "Logowanie",
+  "authRegisterTitle": "Utwórz konto",
+  "email": "E-mail",
+  "password": "Hasło",
+  "signIn": "Zaloguj",
+  "register": "Zarejestruj",
+  "signInWithGoogle": "Kontynuuj z Google",
+  "signInWithApple": "Kontynuuj z Apple",
+  "authToggleToRegister": "Nie masz konta? Zarejestruj się",
+  "authToggleToSignIn": "Masz konto? Zaloguj się",
+  "authError": "Coś poszło nie tak. Sprawdź dane i spróbuj ponownie.",
+  "signOut": "Wyloguj",
   "disclaimer": "Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami."
 }

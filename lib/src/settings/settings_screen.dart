@@ -83,6 +83,18 @@ class SettingsScreen extends ConsumerWidget {
             title: Text(l.settingsReset),
             onTap: () => _reset(context, ref, l),
           ),
+          const Divider(),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.logout),
+            title: Text(l.signOut),
+            onTap: () async {
+              await ref.read(authServiceProvider).signOut();
+              if (context.mounted) {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              }
+            },
+          ),
         ],
       ),
     );

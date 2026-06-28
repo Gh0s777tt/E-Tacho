@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/timezone.dart' as tz;
 
+import 'auth/auth_service.dart';
 import 'data/activity_repository.dart';
 import 'data/persistent_repository.dart';
 import 'data/preferences_store.dart';
@@ -185,3 +186,16 @@ final drivingDetectorProvider = Provider<DrivingDetector>((ref) {
 
 final homeWidgetServiceProvider =
     Provider<HomeWidgetService>((ref) => HomeWidgetService());
+
+// ── Auth ────────────────────────────────────────────────────────────────────
+
+/// Stub now; swap for a Supabase-backed implementation behind this provider.
+final authServiceProvider = Provider<AuthService>((ref) {
+  final service = StubAuthService();
+  ref.onDispose(service.dispose);
+  return service;
+});
+
+final authStateProvider = StreamProvider<AuthUser?>(
+  (ref) => ref.watch(authServiceProvider).authState(),
+);

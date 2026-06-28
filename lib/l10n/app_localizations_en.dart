@@ -168,6 +168,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get no => 'No';
 
   @override
+  String get authSignInTitle => 'Sign in';
+
+  @override
+  String get authRegisterTitle => 'Create account';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get signIn => 'Sign in';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get signInWithGoogle => 'Continue with Google';
+
+  @override
+  String get signInWithApple => 'Continue with Apple';
+
+  @override
+  String get authToggleToRegister => 'No account? Register';
+
+  @override
+  String get authToggleToSignIn => 'Have an account? Sign in';
+
+  @override
+  String get authError =>
+      'Something went wrong. Check your details and try again.';
+
+  @override
+  String get signOut => 'Sign out';
+
+  @override
   String get disclaimer =>
       'A supporting tool only — it does not replace the tachograph and does not guarantee compliance.';
 }
