@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../format.dart';
+import '../history/history_screen.dart';
 import '../providers.dart';
+import '../ui_labels.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -17,7 +19,18 @@ class HomeScreen extends ConsumerWidget {
         ref.watch(activityEventsProvider).valueOrNull?.isNotEmpty ?? false;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.appTitle)),
+      appBar: AppBar(
+        title: Text(l.appTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            tooltip: l.historyTitle,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const HistoryScreen()),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -82,10 +95,10 @@ class _CurrentStateBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(_iconFor(state.currentActivity), color: Colors.white, size: 28),
+          Icon(iconFor(state.currentActivity), color: Colors.white, size: 28),
           const SizedBox(width: 10),
           Text(
-            _stateLabel(l, state.currentActivity),
+            stateLabel(l, state.currentActivity),
             style: const TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -160,7 +173,7 @@ class _NextActionBanner extends StatelessWidget {
       return const SizedBox.shrink();
     }
     final action = state.upcomingActions.first;
-    final label = _actionLabel(l, action.type);
+    final label = actionLabel(l, action.type);
     final text = action.timeUntil <= Duration.zero
         ? l.actionNow(label)
         : l.actionIn(label, formatHm(action.timeUntil));
@@ -259,47 +272,5 @@ class _StateButton extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-String _stateLabel(AppLocalizations l, ActivityType type) {
-  switch (type) {
-    case ActivityType.driving:
-      return l.stateDriving;
-    case ActivityType.otherWork:
-      return l.stateOtherWork;
-    case ActivityType.availability:
-      return l.stateAvailability;
-    case ActivityType.rest:
-      return l.stateRest;
-  }
-}
-
-IconData _iconFor(ActivityType type) {
-  switch (type) {
-    case ActivityType.driving:
-      return Icons.local_shipping;
-    case ActivityType.otherWork:
-      return Icons.build;
-    case ActivityType.availability:
-      return Icons.hourglass_empty;
-    case ActivityType.rest:
-      return Icons.hotel;
-  }
-}
-
-String _actionLabel(AppLocalizations l, RequiredActionType type) {
-  switch (type) {
-    case RequiredActionType.takeBreak:
-    case RequiredActionType.takeSplitBreakSecondPart:
-      return l.actionTakeBreak;
-    case RequiredActionType.takeWorkBreak:
-      return l.actionTakeWorkBreak;
-    case RequiredActionType.takeDailyRest:
-      return l.actionTakeDailyRest;
-    case RequiredActionType.endDuty:
-      return l.actionEndDuty;
-    case RequiredActionType.mayResumeWork:
-      return l.actionMayResumeWork;
   }
 }

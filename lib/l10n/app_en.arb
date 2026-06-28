@@ -30,6 +30,8 @@
       "label": { "type": "String" }
     }
   },
+  "historyTitle": "History",
+  "historyEmpty": "No activity recorded yet.",
   "noData": "No activity yet — pick a state below.",
   "disclaimer": "A supporting tool only — it does not replace the tachograph and does not guarantee compliance."
 }

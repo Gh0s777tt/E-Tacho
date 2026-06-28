@@ -70,6 +70,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get historyTitle => 'History';
+
+  @override
+  String get historyEmpty => 'No activity recorded yet.';
+
+  @override
   String get noData => 'No activity yet — pick a state below.';
 
   @override

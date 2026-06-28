@@ -19,6 +19,8 @@
   "actionMayResumeWork": "Możesz wznowić pracę",
   "actionIn": "{label} za {time}",
   "actionNow": "{label}: teraz",
+  "historyTitle": "Historia",
+  "historyEmpty": "Brak zarejestrowanej aktywności.",
   "noData": "Brak aktywności — wybierz stan poniżej.",
   "disclaimer": "Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami."
 }

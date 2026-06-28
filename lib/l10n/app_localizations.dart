@@ -212,6 +212,18 @@ abstract class AppLocalizations {
   /// **'{label}: now'**
   String actionNow(String label);
 
+  /// No description provided for @historyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get historyTitle;
+
+  /// No description provided for @historyEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No activity recorded yet.'**
+  String get historyEmpty;
+
   /// No description provided for @noData.
   ///
   /// In en, this message translates to:

@@ -1,5 +1,6 @@
 import 'package:compliance_engine/compliance_engine.dart';
 import 'package:flutter/material.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 /// Formats a duration as `H:MM` (e.g. `4:05`). Negatives get a leading minus.
 String formatHm(Duration d) {
@@ -23,4 +24,11 @@ Color levelColor(ComplianceLevel level) {
     case ComplianceLevel.exceeded:
       return const Color(0xFFB71C1C); // red 900
   }
+}
+
+/// Formats a UTC instant as local `HH:mm` in the given base time zone.
+String formatClock(DateTime utcTime, tz.Location loc) {
+  final local = tz.TZDateTime.from(utcTime, loc);
+  return '${local.hour.toString().padLeft(2, '0')}:'
+      '${local.minute.toString().padLeft(2, '0')}';
 }

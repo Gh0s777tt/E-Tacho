@@ -1,6 +1,7 @@
 import 'package:e_tacho/src/app.dart';
 import 'package:e_tacho/src/data/activity_repository.dart';
 import 'package:e_tacho/src/providers.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
@@ -35,5 +36,27 @@ void main() {
 
     // The current-state bar now reflects driving.
     expect(find.text('Driving'), findsWidgets);
+  });
+
+  testWidgets('opens the history screen from the app bar', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          nowProvider.overrideWith(
+            (ref) => Stream<DateTime>.value(DateTime.utc(2035, 1, 1)),
+          ),
+          activityRepositoryProvider
+              .overrideWithValue(InMemoryActivityRepository()),
+        ],
+        child: const ETachoApp(),
+      ),
+    );
+    await tester.pump();
+
+    await tester.tap(find.byIcon(Icons.history));
+    await tester.pumpAndSettle();
+
+    expect(find.text('History'), findsOneWidget);
+    expect(find.text('No activity recorded yet.'), findsOneWidget);
   });
 }

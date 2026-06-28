@@ -70,6 +70,12 @@ class AppLocalizationsPl extends AppLocalizations {
   }
 
   @override
+  String get historyTitle => 'Historia';
+
+  @override
+  String get historyEmpty => 'Brak zarejestrowanej aktywności.';
+
+  @override
   String get noData => 'Brak aktywności — wybierz stan poniżej.';
 
   @override
