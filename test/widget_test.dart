@@ -1,4 +1,5 @@
 import 'package:e_tacho/src/app.dart';
+import 'package:e_tacho/src/data/activity_repository.dart';
 import 'package:e_tacho/src/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,6 +17,9 @@ void main() {
           nowProvider.overrideWith(
             (ref) => Stream<DateTime>.value(DateTime.utc(2035, 1, 1)),
           ),
+          // In-memory storage so the test needs no native SQLite / file system.
+          activityRepositoryProvider
+              .overrideWithValue(InMemoryActivityRepository()),
         ],
         child: const ETachoApp(),
       ),
@@ -26,6 +30,7 @@ void main() {
     expect(find.text('Drive'), findsOneWidget);
 
     await tester.tap(find.text('Drive'));
+    await tester.pump();
     await tester.pump();
 
     // The current-state bar now reflects driving.

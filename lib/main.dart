@@ -5,6 +5,7 @@ import 'package:timezone/data/latest.dart' as tzdata;
 import 'src/app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   tzdata.initializeTimeZones();
   runApp(const ProviderScope(child: ETachoApp()));
 }

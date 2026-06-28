@@ -13,7 +13,8 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final state = ref.watch(complianceProvider);
-    final hasEvents = ref.watch(activityStoreProvider).isNotEmpty;
+    final hasEvents =
+        ref.watch(activityEventsProvider).valueOrNull?.isNotEmpty ?? false;
 
     return Scaffold(
       appBar: AppBar(title: Text(l.appTitle)),
@@ -187,7 +188,7 @@ class _StateButtons extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
-    final store = ref.read(activityStoreProvider.notifier);
+    final repository = ref.read(activityRepositoryProvider);
     final items = <(ActivityType, String, IconData)>[
       (ActivityType.driving, l.btnDrive, Icons.local_shipping),
       (ActivityType.otherWork, l.btnOtherWork, Icons.build),
@@ -207,7 +208,7 @@ class _StateButtons extends ConsumerWidget {
             label: label,
             icon: icon,
             selected: hasEvents && type == active,
-            onTap: () => store.setActivity(type),
+            onTap: () => repository.add(type),
           ),
       ],
     );
