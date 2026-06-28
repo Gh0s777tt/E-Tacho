@@ -1,6 +1,10 @@
 {
   "@@locale": "pl",
   "appTitle": "E-Tacho",
+  "onboardingTitle": "Witaj",
+  "onboardingIntro": "E-Tacho pomaga pilnować czasu jazdy, przerw i odpoczynków zgodnie z rozporządzeniem 561/2006 i polskim prawem.",
+  "onboardingConsent": "Zapoznałem(-am) się z powyższym i wyrażam zgodę na przetwarzanie moich danych o czasie pracy zgodnie z polityką prywatności (RODO).",
+  "onboardingAccept": "Zaczynaj",
   "currentState": "Aktualny stan",
   "stateDriving": "Jazda",
   "stateOtherWork": "Inna praca",

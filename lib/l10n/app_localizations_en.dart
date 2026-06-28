@@ -12,6 +12,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'E-Tacho';
 
   @override
+  String get onboardingTitle => 'Welcome';
+
+  @override
+  String get onboardingIntro =>
+      'E-Tacho helps you track driving time, breaks and rest under EU Regulation 561/2006 and Polish law.';
+
+  @override
+  String get onboardingConsent =>
+      'I have read the above and consent to the processing of my working-time data in line with the privacy policy (GDPR).';
+
+  @override
+  String get onboardingAccept => 'Get started';
+
+  @override
   String get currentState => 'Current state';
 
   @override

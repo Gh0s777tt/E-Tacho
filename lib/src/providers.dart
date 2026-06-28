@@ -4,6 +4,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'data/activity_repository.dart';
 import 'data/persistent_repository.dart';
+import 'data/preferences_store.dart';
 
 /// Ticks once per second so the UI re-evaluates the (pure) engine. The engine
 /// itself holds no timer.
@@ -51,3 +52,26 @@ final complianceProvider = Provider<ComplianceState>((ref) {
         safetyBuffer: ref.watch(safetyBufferProvider),
       );
 });
+
+/// Key-value preferences (consent flag now; buffer/locale/tz later).
+/// Overridden in main with a SharedPreferences-backed store.
+final preferencesStoreProvider = Provider<PreferencesStore>((ref) {
+  throw UnimplementedError('preferencesStoreProvider must be overridden');
+});
+
+/// Tracks whether the driver has accepted the disclaimer + GDPR consent.
+class OnboardingController extends StateNotifier<bool> {
+  OnboardingController(this._store) : super(_store.onboardingAccepted);
+
+  final PreferencesStore _store;
+
+  Future<void> accept() async {
+    await _store.setOnboardingAccepted(true);
+    state = true;
+  }
+}
+
+final onboardingAcceptedProvider =
+    StateNotifierProvider<OnboardingController, bool>(
+  (ref) => OnboardingController(ref.watch(preferencesStoreProvider)),
+);

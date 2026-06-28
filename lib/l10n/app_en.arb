@@ -1,6 +1,10 @@
 {
   "@@locale": "en",
   "appTitle": "E-Tacho",
+  "onboardingTitle": "Welcome",
+  "onboardingIntro": "E-Tacho helps you track driving time, breaks and rest under EU Regulation 561/2006 and Polish law.",
+  "onboardingConsent": "I have read the above and consent to the processing of my working-time data in line with the privacy policy (GDPR).",
+  "onboardingAccept": "Get started",
   "currentState": "Current state",
   "stateDriving": "Driving",
   "stateOtherWork": "Other work",

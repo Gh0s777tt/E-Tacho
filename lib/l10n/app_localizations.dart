@@ -104,6 +104,30 @@ abstract class AppLocalizations {
   /// **'E-Tacho'**
   String get appTitle;
 
+  /// No description provided for @onboardingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get onboardingTitle;
+
+  /// No description provided for @onboardingIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Tacho helps you track driving time, breaks and rest under EU Regulation 561/2006 and Polish law.'**
+  String get onboardingIntro;
+
+  /// No description provided for @onboardingConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read the above and consent to the processing of my working-time data in line with the privacy policy (GDPR).'**
+  String get onboardingConsent;
+
+  /// No description provided for @onboardingAccept.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get onboardingAccept;
+
   /// No description provided for @currentState.
   ///
   /// In en, this message translates to:

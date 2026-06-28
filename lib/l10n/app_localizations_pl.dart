@@ -12,6 +12,20 @@ class AppLocalizationsPl extends AppLocalizations {
   String get appTitle => 'E-Tacho';
 
   @override
+  String get onboardingTitle => 'Witaj';
+
+  @override
+  String get onboardingIntro =>
+      'E-Tacho pomaga pilnować czasu jazdy, przerw i odpoczynków zgodnie z rozporządzeniem 561/2006 i polskim prawem.';
+
+  @override
+  String get onboardingConsent =>
+      'Zapoznałem(-am) się z powyższym i wyrażam zgodę na przetwarzanie moich danych o czasie pracy zgodnie z polityką prywatności (RODO).';
+
+  @override
+  String get onboardingAccept => 'Zaczynaj';
+
+  @override
   String get currentState => 'Aktualny stan';
 
   @override
