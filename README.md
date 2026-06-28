@@ -14,71 +14,89 @@ mandatory breaks via on-device notifications.
 > Aplikacja jest **narzędziem pomocniczym**. Źródłem prawdy jest tachograf.
 > Nie zwalnia z odpowiedzialności prawnej i nie gwarantuje zgodności z przepisami.
 
-## Status
+## Status — MVP (solo mode)
 
-Early development — building the MVP. Per the project plan, the **compliance rules
-engine is implemented first**, as a pure-Dart, fully unit-tested package, before any
-UI is built.
+Implemented and green (`flutter analyze` clean, 53 engine tests + 5 widget tests):
 
-## Guiding principles
+- **Compliance engine** — pure Dart, EU 561/2006 + PL working time (11 counters).
+- **Home screen** — large "until break" / "until end of day" countdowns, current
+  state, big state buttons, level-based accent colour, disclaimer footer.
+- **Notifications** — `NotificationPlanner` (tested) + `flutter_local_notifications`
+  wiring (layered 30 / 15 / now alerts; delivery to be verified on a device).
+- **Offline-first storage** — Drift (SQLite); activity log survives restarts.
+- **History** (ewidencja), **Settings** (buffer, base time zone, language, CSV
+  export, reset), **Onboarding** with disclaimer + GDPR/RODO consent gate.
+- **Auto driving-detection skeleton** — confirm-after-stop prompt with backfill.
+- **i18n** PL + EN from the start.
 
-1. **Driver's ally, not surveillance** — works for the driver, not the employer.
-2. **A helper, not the source of truth** — the tachograph is the legal record.
-3. **Minimal interaction while driving** — key actions happen before/after driving.
-4. **Offline-first** — all counting and notifications work fully offline.
-5. **Rules are configuration, not code** — limits live in a versioned rules pack.
+Not yet built: authentication (needs a Supabase project + Apple/Google accounts),
+home-screen widget, real activity-recognition sensors, web (wasm) persistence,
+and engine stage-2 (weekly rest + compensation, split daily rest, crew mode).
 
 ## Tech stack
 
 | Concern | Choice |
 | --- | --- |
-| App framework | Flutter (iOS + Android) |
-| Compliance engine | Pure-Dart package (`packages/compliance_engine`), no Flutter deps |
-| Local store (offline) | Drift (SQLite) |
+| App framework | Flutter (iOS + Android; web for preview) |
+| Compliance engine | Pure-Dart package `packages/compliance_engine` |
 | State management | Riverpod |
-| Backend / auth / sync | Supabase (optional, async) |
-| Notifications | flutter_local_notifications (on-device scheduled) |
+| Local store (offline) | Drift (SQLite); in-memory fallback on web |
+| Preferences | shared_preferences |
+| Notifications | flutter_local_notifications (+ engine `NotificationPlanner`) |
+| Time zones | `timezone` (DST-aware week/duty boundaries) |
+| Backend (later) | Supabase |
 
 ## Repository layout
 
 ```
 e_tacho/
-├── packages/
-│   └── compliance_engine/   # pure Dart — the rules engine (no Flutter/DB)
-├── lib/                      # Flutter app (UI, data, services)
-├── test/                    # app-level tests
-└── melos.yaml               # workspace
+├── packages/compliance_engine/   # pure-Dart rules engine (no Flutter/DB)
+├── lib/
+│   ├── main.dart
+│   ├── l10n/                      # app_en.arb, app_pl.arb (+ generated)
+│   └── src/
+│       ├── app.dart, providers.dart, theme.dart, format.dart, ui_labels.dart
+│       ├── data/                 # Drift db, repositories, preferences
+│       ├── home/  history/  settings/  onboarding/
+│       ├── notifications/        # service + scheduler
+│       └── detection/            # driving-detection skeleton
+├── docs/LEGAL_VERIFICATION.md    # defaults pending legal review + known gaps
+└── test/                        # widget tests
 ```
 
 ## Development
 
 ### Prerequisites
+- Flutter SDK (stable) — bundles Dart.
 
-- Flutter SDK (stable channel) — bundles the Dart SDK.
-
-### Run the engine tests (pure Dart, no emulator)
-
+### Engine tests (pure Dart, no emulator)
 ```bash
 cd packages/compliance_engine
-dart pub get
-dart test
+dart pub get && dart test
 ```
 
-### Run the app
-
+### App
 ```bash
 flutter pub get
-flutter run
+flutter test                 # widget tests
+flutter run -d chrome        # quick preview (no notifications; in-memory storage)
+flutter run                  # Android device/emulator (full features)
 ```
+
+### Notes
+- **Notifications** require a real Android/iOS device or emulator to verify
+  delivery (Android needs the notification + exact-alarm permissions already
+  declared in the manifest; core-library desugaring is enabled).
+- **iOS** builds require macOS/Xcode.
+- After changing `lib/l10n/*.arb`, regenerate with `flutter gen-l10n`.
+- After changing Drift tables, run `dart run build_runner build`.
 
 ## Compliance scope
 
-- EU Regulation (EC) 561/2006 — driving times, breaks, daily rest.
-- Polish Drivers' Working Time Act — working-time limits, night-work limit.
-
-Regulatory limits live in a **versioned rules pack** and are treated as *defaults
-pending legal review*. Points needing confirmation are marked in code with
-`// TODO: zweryfikować z przepisami`.
+EU 561/2006 (driving times, breaks, daily rest) + Polish Drivers' Working Time
+Act (weekly working time, night-work cap, working-time break). All limits live in
+a versioned **rules pack** and are treated as *defaults pending legal review* —
+see [`docs/LEGAL_VERIFICATION.md`](docs/LEGAL_VERIFICATION.md).
 
 ## License
 
