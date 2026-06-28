@@ -1,0 +1,35 @@
+{
+  "@@locale": "en",
+  "appTitle": "E-Tacho",
+  "currentState": "Current state",
+  "stateDriving": "Driving",
+  "stateOtherWork": "Other work",
+  "stateAvailability": "Availability",
+  "stateRest": "Break / rest",
+  "untilBreak": "Until break",
+  "untilDutyEnd": "Until end of day",
+  "btnDrive": "Drive",
+  "btnOtherWork": "Other work",
+  "btnAvailability": "Availability",
+  "btnRest": "Break",
+  "actionTakeBreak": "Break required",
+  "actionTakeWorkBreak": "Work break required",
+  "actionTakeDailyRest": "Daily rest required",
+  "actionEndDuty": "End of day approaching",
+  "actionMayResumeWork": "You may resume work",
+  "actionIn": "{label} in {time}",
+  "@actionIn": {
+    "placeholders": {
+      "label": { "type": "String" },
+      "time": { "type": "String" }
+    }
+  },
+  "actionNow": "{label}: now",
+  "@actionNow": {
+    "placeholders": {
+      "label": { "type": "String" }
+    }
+  },
+  "noData": "No activity yet — pick a state below.",
+  "disclaimer": "A supporting tool only — it does not replace the tachograph and does not guarantee compliance."
+}
