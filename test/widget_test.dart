@@ -4,6 +4,7 @@ import 'package:e_tacho/src/data/preferences_store.dart';
 import 'package:e_tacho/src/detection/driving_detector.dart';
 import 'package:e_tacho/src/notifications/notification_service.dart';
 import 'package:e_tacho/src/providers.dart';
+import 'package:e_tacho/src/widget/home_widget_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,6 +30,8 @@ void main() {
           ),
           notificationServiceProvider
               .overrideWithValue(_NoopNotificationService()),
+          homeWidgetServiceProvider
+              .overrideWithValue(_NoopHomeWidgetService()),
         ],
         child: const ETachoApp(),
       ),
@@ -60,6 +63,8 @@ void main() {
           ),
           notificationServiceProvider
               .overrideWithValue(_NoopNotificationService()),
+          homeWidgetServiceProvider
+              .overrideWithValue(_NoopHomeWidgetService()),
         ],
         child: const ETachoApp(),
       ),
@@ -87,6 +92,8 @@ void main() {
           ),
           notificationServiceProvider
               .overrideWithValue(_NoopNotificationService()),
+          homeWidgetServiceProvider
+              .overrideWithValue(_NoopHomeWidgetService()),
         ],
         child: const ETachoApp(),
       ),
@@ -119,6 +126,8 @@ void main() {
           ),
           notificationServiceProvider
               .overrideWithValue(_NoopNotificationService()),
+          homeWidgetServiceProvider
+              .overrideWithValue(_NoopHomeWidgetService()),
         ],
         child: const ETachoApp(),
       ),
@@ -148,6 +157,8 @@ void main() {
           ),
           notificationServiceProvider
               .overrideWithValue(_NoopNotificationService()),
+          homeWidgetServiceProvider
+              .overrideWithValue(_NoopHomeWidgetService()),
           drivingDetectorProvider.overrideWithValue(detector),
         ],
         child: const ETachoApp(),
@@ -173,4 +184,14 @@ class _NoopNotificationService extends NotificationService {
 
   @override
   Future<void> sync(List<ScheduledNotification> items) async {}
+}
+
+class _NoopHomeWidgetService extends HomeWidgetService {
+  @override
+  Future<void> update({
+    required String breakLabel,
+    required String breakValue,
+    required String dutyLabel,
+    required String dutyValue,
+  }) async {}
 }

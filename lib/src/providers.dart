@@ -8,6 +8,7 @@ import 'data/persistent_repository.dart';
 import 'data/preferences_store.dart';
 import 'detection/driving_detector.dart';
 import 'notifications/notification_service.dart';
+import 'widget/home_widget_service.dart';
 
 /// Ticks once per second so the UI re-evaluates the (pure) engine.
 final nowProvider = StreamProvider<DateTime>((ref) async* {
@@ -179,3 +180,8 @@ final drivingDetectorProvider = Provider<DrivingDetector>((ref) {
   ref.onDispose(detector.dispose);
   return detector;
 });
+
+// ── Home-screen widget ──────────────────────────────────────────────────────
+
+final homeWidgetServiceProvider =
+    Provider<HomeWidgetService>((ref) => HomeWidgetService());

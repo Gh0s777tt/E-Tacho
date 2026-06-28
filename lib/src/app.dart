@@ -8,6 +8,7 @@ import 'notifications/notification_scheduler.dart';
 import 'onboarding/onboarding_screen.dart';
 import 'providers.dart';
 import 'theme.dart';
+import 'widget/home_widget_updater.dart';
 
 class ETachoApp extends ConsumerWidget {
   const ETachoApp({super.key});
@@ -23,7 +24,9 @@ class ETachoApp extends ConsumerWidget {
       locale: ref.watch(localeProvider),
       home: accepted
           ? const NotificationScheduler(
-              child: DrivingDetectionListener(child: HomeScreen()),
+              child: DrivingDetectionListener(
+                child: HomeWidgetUpdater(child: HomeScreen()),
+              ),
             )
           : const OnboardingScreen(),
     );
