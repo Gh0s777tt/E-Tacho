@@ -11,6 +11,7 @@ import '../counters/night_work_counter.dart';
 import '../counters/reduced_daily_rests_counter.dart';
 import '../counters/weekly_driving_counter.dart';
 import '../counters/weekly_working_time_counter.dart';
+import '../counters/working_time_break_counter.dart';
 import '../models/activity_event.dart';
 import '../models/compliance_state.dart';
 import '../models/counter_status.dart';
@@ -43,6 +44,7 @@ class ComplianceEngine {
     FortnightlyDrivingCounter(),
     WeeklyWorkingTimeCounter(),
     NightWorkCounter(),
+    WorkingTimeBreakCounter(),
   ];
 
   final List<Counter> counters;

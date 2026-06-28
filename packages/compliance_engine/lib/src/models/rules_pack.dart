@@ -44,6 +44,11 @@ class RulesPack extends Equatable {
     required this.nightWorkMaxPerDuty,
     required this.nightWindowStart,
     required this.nightWindowEnd,
+    required this.workBreakAfterWork,
+    required this.workBreakShort,
+    required this.workBreakLong,
+    required this.workBreakLongThresholdWork,
+    required this.workBreakMinPart,
   });
 
   final String version;
@@ -113,6 +118,17 @@ class RulesPack extends Equatable {
   final Duration nightWindowStart;
   final Duration nightWindowEnd;
 
+  /// PL art. 13: a break is due after this much consecutive work.
+  final Duration workBreakAfterWork;
+
+  /// Required break length: [workBreakShort] when daily work is at or below
+  /// [workBreakLongThresholdWork], otherwise [workBreakLong]. The break may be
+  /// split into parts of at least [workBreakMinPart].
+  final Duration workBreakShort;
+  final Duration workBreakLong;
+  final Duration workBreakLongThresholdWork;
+  final Duration workBreakMinPart;
+
   /// Default EU 561/2006 + Polish working-time pack. Values are defaults
   /// pending legal verification.
   static const RulesPack defaultEuPl = RulesPack(
@@ -137,6 +153,11 @@ class RulesPack extends Equatable {
     nightWorkMaxPerDuty: Duration(minutes: 600),
     nightWindowStart: Duration.zero,
     nightWindowEnd: Duration(minutes: 240),
+    workBreakAfterWork: Duration(minutes: 360),
+    workBreakShort: Duration(minutes: 30),
+    workBreakLong: Duration(minutes: 45),
+    workBreakLongThresholdWork: Duration(minutes: 540),
+    workBreakMinPart: Duration(minutes: 15),
   );
 
   factory RulesPack.fromJson(Map<String, dynamic> json) {
@@ -182,6 +203,18 @@ class RulesPack extends Equatable {
           _minOr(json, 'night_window_start_min', defaultEuPl.nightWindowStart),
       nightWindowEnd:
           _minOr(json, 'night_window_end_min', defaultEuPl.nightWindowEnd),
+      workBreakAfterWork: _minOr(
+          json, 'work_break_after_work_min', defaultEuPl.workBreakAfterWork),
+      workBreakShort:
+          _minOr(json, 'work_break_short_min', defaultEuPl.workBreakShort),
+      workBreakLong:
+          _minOr(json, 'work_break_long_min', defaultEuPl.workBreakLong),
+      workBreakLongThresholdWork: _minOr(
+          json,
+          'work_break_long_threshold_work_min',
+          defaultEuPl.workBreakLongThresholdWork),
+      workBreakMinPart: _minOr(
+          json, 'work_break_min_part_min', defaultEuPl.workBreakMinPart),
     )..validate();
     return pack;
   }
@@ -209,6 +242,12 @@ class RulesPack extends Equatable {
         'night_work_max_between_rests_min': nightWorkMaxPerDuty.inMinutes,
         'night_window_start_min': nightWindowStart.inMinutes,
         'night_window_end_min': nightWindowEnd.inMinutes,
+        'work_break_after_work_min': workBreakAfterWork.inMinutes,
+        'work_break_short_min': workBreakShort.inMinutes,
+        'work_break_long_min': workBreakLong.inMinutes,
+        'work_break_long_threshold_work_min':
+            workBreakLongThresholdWork.inMinutes,
+        'work_break_min_part_min': workBreakMinPart.inMinutes,
       };
 
   /// Validates internal consistency. Throws [RulesPackFormatException].
@@ -252,6 +291,16 @@ class RulesPack extends Equatable {
       // TODO: support a night window that wraps past midnight.
       throw const RulesPackFormatException(
           'night_window_end_min must be > night_window_start_min');
+    }
+    positive(workBreakAfterWork, 'work_break_after_work_min');
+    positive(workBreakMinPart, 'work_break_min_part_min');
+    if (workBreakShort > workBreakLong) {
+      throw const RulesPackFormatException(
+          'work_break_short_min must be <= work_break_long_min');
+    }
+    if (workBreakMinPart > workBreakShort) {
+      throw const RulesPackFormatException(
+          'work_break_min_part_min must be <= work_break_short_min');
     }
   }
 
@@ -299,5 +348,10 @@ class RulesPack extends Equatable {
         nightWorkMaxPerDuty,
         nightWindowStart,
         nightWindowEnd,
+        workBreakAfterWork,
+        workBreakShort,
+        workBreakLong,
+        workBreakLongThresholdWork,
+        workBreakMinPart,
       ];
 }

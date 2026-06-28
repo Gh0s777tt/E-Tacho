@@ -31,6 +31,9 @@ enum CounterType {
 
   /// Working time within a duty period when night work is performed (PL: 10h).
   nightWork,
+
+  /// Break required after consecutive working time (PL art. 13: 30/45 min).
+  workingTimeBreak,
 }
 
 /// Severity of a counter relative to its limit and the driver's safety buffer.

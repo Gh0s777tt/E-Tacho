@@ -27,6 +27,7 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
 | Weekly working time (PL) | 60h single week | PL act art. 12 |
 | Avg weekly working time (PL) | 48h / reference period | PL act art. 12 |
 | Night-work working-time cap (PL) | 10h per duty | PL act art. 21 |
+| Working-time break (PL) | 30 min after 6h work; 45 min if >9h | PL act art. 13 |
 
 ## 2. Open interpretation questions (marked `// TODO: zweryfikować` in code)
 
@@ -45,12 +46,15 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
    (`extended_driving_days_counter.dart`)
 5. **Working-time definition.** Working time = driving + other work; availability
    is excluded. Confirm the treatment of availability / waiting time under PL law.
+6. **PL working-time break (art. 13).** Implemented as: a break is due after 6h of
+   *consecutive* work; the required total is 30 min if daily work ≤ 9h, otherwise
+   45 min; splittable into ≥15-min parts; EU 561/2006 breaks count (any rest
+   accrues toward it and resets the clock). Confirm: "consecutive" vs cumulative
+   basis, the 9h threshold basis (daily working time), and part accumulation.
+   (`working_time_break_counter.dart`)
 
 ## 3. Known gaps (not yet implemented — by design, MVP)
 
-- **PL working-time break** (≥30 min after 6h work, ≥45 min after 9h). Needs a
-  decision on how it interacts with the 561/2006 driving break before
-  implementing (avoid double-counting). **Main remaining PL rule.**
 - **Split daily rest** (3h + 9h). Currently a daily rest is a single block ≥ 9h.
 - **Weekly rest + compensation** (45h / 24h reduced, art. 8; compensation art. 8(6)).
   Stage 2.

@@ -15,6 +15,9 @@ enum RequiredActionType {
   /// The duty window is closing — work must end and the daily rest must start.
   endDuty,
 
+  /// A break is required after consecutive working time (PL art. 13).
+  takeWorkBreak,
+
   /// After a rest, the driver may resume work (now or at [timeUntil]).
   mayResumeWork,
 }

@@ -40,10 +40,11 @@ isolation.
 | `fortnightlyDriving` | two-week driving | 90h |
 | `weeklyWorkingTime` | PL: weekly working time (driving + other work) | 60h |
 | `nightWork` | PL: working time per duty when night work is performed | 10h |
+| `workingTimeBreak` | PL: break after consecutive work (art. 13) | 30/45 min after 6h |
 
 See [`docs/LEGAL_VERIFICATION.md`](../../docs/LEGAL_VERIFICATION.md) for the
 defaults pending legal review and the known gaps (split daily rest, weekly rest
-+ compensation, PL working-time break, crew mode).
++ compensation, crew mode).
 
 ## Usage
 
