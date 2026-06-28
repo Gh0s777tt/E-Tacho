@@ -39,5 +39,12 @@
   "reset": "Resetuj",
   "exportCopied": "Skopiowano do schowka",
   "resetDone": "Dane wyczyszczone",
+  "notifBreak": "Czas na 45-minutową przerwę",
+  "notifDailyDriving": "Zbliża się dzienny limit jazdy",
+  "notifDuty": "Zbliża się koniec doby pracy",
+  "notifWeeklyDriving": "Zbliża się tygodniowy limit jazdy",
+  "notifFortnightly": "Zbliża się dwutygodniowy limit jazdy",
+  "notifWorkBreak": "Należna przerwa od pracy",
+  "notifResume": "Możesz wznowić pracę",
   "disclaimer": "Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami."
 }

@@ -133,6 +133,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetDone => 'Data cleared';
 
   @override
+  String get notifBreak => 'Time for a 45-minute break';
+
+  @override
+  String get notifDailyDriving => 'Daily driving limit is approaching';
+
+  @override
+  String get notifDuty => 'End of your working day is approaching';
+
+  @override
+  String get notifWeeklyDriving => 'Weekly driving limit is approaching';
+
+  @override
+  String get notifFortnightly => 'Two-week driving limit is approaching';
+
+  @override
+  String get notifWorkBreak => 'A work break is due';
+
+  @override
+  String get notifResume => 'You may resume work';
+
+  @override
   String get disclaimer =>
       'A supporting tool only — it does not replace the tachograph and does not guarantee compliance.';
 }

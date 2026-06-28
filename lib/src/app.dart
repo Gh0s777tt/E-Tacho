@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../l10n/app_localizations.dart';
 import 'home/home_screen.dart';
+import 'notifications/notification_scheduler.dart';
 import 'onboarding/onboarding_screen.dart';
 import 'providers.dart';
 import 'theme.dart';
@@ -19,7 +20,9 @@ class ETachoApp extends ConsumerWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: ref.watch(localeProvider),
-      home: accepted ? const HomeScreen() : const OnboardingScreen(),
+      home: accepted
+          ? const NotificationScheduler(child: HomeScreen())
+          : const OnboardingScreen(),
     );
   }
 }

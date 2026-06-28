@@ -332,6 +332,48 @@ abstract class AppLocalizations {
   /// **'Data cleared'**
   String get resetDone;
 
+  /// No description provided for @notifBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for a 45-minute break'**
+  String get notifBreak;
+
+  /// No description provided for @notifDailyDriving.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily driving limit is approaching'**
+  String get notifDailyDriving;
+
+  /// No description provided for @notifDuty.
+  ///
+  /// In en, this message translates to:
+  /// **'End of your working day is approaching'**
+  String get notifDuty;
+
+  /// No description provided for @notifWeeklyDriving.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly driving limit is approaching'**
+  String get notifWeeklyDriving;
+
+  /// No description provided for @notifFortnightly.
+  ///
+  /// In en, this message translates to:
+  /// **'Two-week driving limit is approaching'**
+  String get notifFortnightly;
+
+  /// No description provided for @notifWorkBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'A work break is due'**
+  String get notifWorkBreak;
+
+  /// No description provided for @notifResume.
+  ///
+  /// In en, this message translates to:
+  /// **'You may resume work'**
+  String get notifResume;
+
   /// No description provided for @disclaimer.
   ///
   /// In en, this message translates to:

@@ -132,6 +132,27 @@ class AppLocalizationsPl extends AppLocalizations {
   String get resetDone => 'Dane wyczyszczone';
 
   @override
+  String get notifBreak => 'Czas na 45-minutową przerwę';
+
+  @override
+  String get notifDailyDriving => 'Zbliża się dzienny limit jazdy';
+
+  @override
+  String get notifDuty => 'Zbliża się koniec doby pracy';
+
+  @override
+  String get notifWeeklyDriving => 'Zbliża się tygodniowy limit jazdy';
+
+  @override
+  String get notifFortnightly => 'Zbliża się dwutygodniowy limit jazdy';
+
+  @override
+  String get notifWorkBreak => 'Należna przerwa od pracy';
+
+  @override
+  String get notifResume => 'Możesz wznowić pracę';
+
+  @override
   String get disclaimer =>
       'Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami.';
 }

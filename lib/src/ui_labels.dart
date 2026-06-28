@@ -44,3 +44,25 @@ String actionLabel(AppLocalizations l, RequiredActionType type) {
       return l.actionMayResumeWork;
   }
 }
+
+/// Maps a NotificationPlanner title key to a localized notification body.
+String notificationBody(AppLocalizations l, String titleKey) {
+  switch (titleKey) {
+    case 'notif.break.title':
+      return l.notifBreak;
+    case 'notif.daily_driving.title':
+      return l.notifDailyDriving;
+    case 'notif.duty.title':
+      return l.notifDuty;
+    case 'notif.weekly_driving.title':
+      return l.notifWeeklyDriving;
+    case 'notif.fortnightly_driving.title':
+      return l.notifFortnightly;
+    case 'notif.work_break.title':
+      return l.notifWorkBreak;
+    case 'notif.may_resume_work.title':
+      return l.notifResume;
+    default:
+      return l.appTitle;
+  }
+}

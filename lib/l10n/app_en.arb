@@ -50,5 +50,12 @@
   "reset": "Reset",
   "exportCopied": "Copied to clipboard",
   "resetDone": "Data cleared",
+  "notifBreak": "Time for a 45-minute break",
+  "notifDailyDriving": "Daily driving limit is approaching",
+  "notifDuty": "End of your working day is approaching",
+  "notifWeeklyDriving": "Weekly driving limit is approaching",
+  "notifFortnightly": "Two-week driving limit is approaching",
+  "notifWorkBreak": "A work break is due",
+  "notifResume": "You may resume work",
   "disclaimer": "A supporting tool only — it does not replace the tachograph and does not guarantee compliance."
 }

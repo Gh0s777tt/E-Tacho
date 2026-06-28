@@ -1,6 +1,7 @@
 import 'package:e_tacho/src/app.dart';
 import 'package:e_tacho/src/data/activity_repository.dart';
 import 'package:e_tacho/src/data/preferences_store.dart';
+import 'package:e_tacho/src/notifications/notification_service.dart';
 import 'package:e_tacho/src/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,6 +26,8 @@ void main() {
           preferencesStoreProvider.overrideWithValue(
             InMemoryPreferencesStore(true),
           ),
+          notificationServiceProvider
+              .overrideWithValue(_NoopNotificationService()),
         ],
         child: const ETachoApp(),
       ),
@@ -54,6 +57,8 @@ void main() {
           preferencesStoreProvider.overrideWithValue(
             InMemoryPreferencesStore(true),
           ),
+          notificationServiceProvider
+              .overrideWithValue(_NoopNotificationService()),
         ],
         child: const ETachoApp(),
       ),
@@ -79,6 +84,8 @@ void main() {
           preferencesStoreProvider.overrideWithValue(
             InMemoryPreferencesStore(false),
           ),
+          notificationServiceProvider
+              .overrideWithValue(_NoopNotificationService()),
         ],
         child: const ETachoApp(),
       ),
@@ -109,6 +116,8 @@ void main() {
           preferencesStoreProvider.overrideWithValue(
             InMemoryPreferencesStore(true),
           ),
+          notificationServiceProvider
+              .overrideWithValue(_NoopNotificationService()),
         ],
         child: const ETachoApp(),
       ),
@@ -121,4 +130,12 @@ void main() {
     expect(find.text('Settings'), findsOneWidget);
     expect(find.text('Warning buffer'), findsOneWidget);
   });
+}
+
+class _NoopNotificationService extends NotificationService {
+  @override
+  Future<void> init() async {}
+
+  @override
+  Future<void> sync(List<ScheduledNotification> items) async {}
 }

@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'data/activity_repository.dart';
 import 'data/persistent_repository.dart';
 import 'data/preferences_store.dart';
+import 'notifications/notification_service.dart';
 
 /// Ticks once per second so the UI re-evaluates the (pure) engine.
 final nowProvider = StreamProvider<DateTime>((ref) async* {
@@ -140,3 +141,32 @@ final onboardingAcceptedProvider =
     StateNotifierProvider<OnboardingController, bool>(
   (ref) => OnboardingController(ref.watch(preferencesStoreProvider)),
 );
+
+// ── Notifications ───────────────────────────────────────────────────────────
+
+final notificationServiceProvider =
+    Provider<NotificationService>((ref) => NotificationService());
+
+/// Planned notifications, recomputed when the activity log or settings change
+/// (not on every clock tick — the fire times are absolute).
+final plannedNotificationsProvider = Provider<List<PlannedNotification>>((ref) {
+  final events =
+      ref.watch(activityEventsProvider).valueOrNull ?? const <ActivityEvent>[];
+  final buffer = ref.watch(safetyBufferProvider);
+  final now = DateTime.now().toUtc();
+  final state = ref.watch(engineProvider).evaluate(
+        events: events,
+        rules: ref.watch(rulesProvider),
+        now: now,
+        timeZone: ref.watch(baseLocationProvider),
+        safetyBuffer: buffer,
+      );
+  final leads = <Duration>{buffer, const Duration(minutes: 15), Duration.zero}
+      .toList()
+    ..sort((a, b) => b.compareTo(a));
+  return const NotificationPlanner().plan(
+    state: state,
+    now: now,
+    prefs: NotificationPreferences(leadTimes: leads),
+  );
+});
