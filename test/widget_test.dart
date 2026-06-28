@@ -1,6 +1,7 @@
 import 'package:e_tacho/src/app.dart';
 import 'package:e_tacho/src/data/activity_repository.dart';
 import 'package:e_tacho/src/data/preferences_store.dart';
+import 'package:e_tacho/src/detection/driving_detector.dart';
 import 'package:e_tacho/src/notifications/notification_service.dart';
 import 'package:e_tacho/src/providers.dart';
 import 'package:flutter/material.dart';
@@ -129,6 +130,40 @@ void main() {
 
     expect(find.text('Settings'), findsOneWidget);
     expect(find.text('Warning buffer'), findsOneWidget);
+  });
+
+  testWidgets('auto-detection prompt backfills a driving event on confirm',
+      (tester) async {
+    final detector = SimulatedDrivingDetector();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          nowProvider.overrideWith(
+            (ref) => Stream<DateTime>.value(DateTime.utc(2035, 1, 1)),
+          ),
+          activityRepositoryProvider
+              .overrideWithValue(InMemoryActivityRepository()),
+          preferencesStoreProvider.overrideWithValue(
+            InMemoryPreferencesStore(true),
+          ),
+          notificationServiceProvider
+              .overrideWithValue(_NoopNotificationService()),
+          drivingDetectorProvider.overrideWithValue(detector),
+        ],
+        child: const ETachoApp(),
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+
+    detector.simulate(DateTime.utc(2034, 12, 31, 8, 14));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Driving detected'), findsOneWidget);
+    await tester.tap(find.text('Yes'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Driving'), findsWidgets);
   });
 }
 

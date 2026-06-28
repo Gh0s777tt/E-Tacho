@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../l10n/app_localizations.dart';
+import 'detection/driving_detection_listener.dart';
 import 'home/home_screen.dart';
 import 'notifications/notification_scheduler.dart';
 import 'onboarding/onboarding_screen.dart';
@@ -21,7 +22,9 @@ class ETachoApp extends ConsumerWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       locale: ref.watch(localeProvider),
       home: accepted
-          ? const NotificationScheduler(child: HomeScreen())
+          ? const NotificationScheduler(
+              child: DrivingDetectionListener(child: HomeScreen()),
+            )
           : const OnboardingScreen(),
     );
   }

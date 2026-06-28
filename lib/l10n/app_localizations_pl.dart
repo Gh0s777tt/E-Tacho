@@ -153,6 +153,20 @@ class AppLocalizationsPl extends AppLocalizations {
   String get notifResume => 'Możesz wznowić pracę';
 
   @override
+  String get detectDrivingTitle => 'Wykryto jazdę';
+
+  @override
+  String detectDrivingBody(String time) {
+    return 'Rozpocząć jazdę od $time?';
+  }
+
+  @override
+  String get yes => 'Tak';
+
+  @override
+  String get no => 'Nie';
+
+  @override
   String get disclaimer =>
       'Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami.';
 }

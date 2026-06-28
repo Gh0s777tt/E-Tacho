@@ -154,6 +154,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifResume => 'You may resume work';
 
   @override
+  String get detectDrivingTitle => 'Driving detected';
+
+  @override
+  String detectDrivingBody(String time) {
+    return 'Start driving from $time?';
+  }
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
   String get disclaimer =>
       'A supporting tool only — it does not replace the tachograph and does not guarantee compliance.';
 }

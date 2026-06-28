@@ -46,5 +46,9 @@
   "notifFortnightly": "Zbliża się dwutygodniowy limit jazdy",
   "notifWorkBreak": "Należna przerwa od pracy",
   "notifResume": "Możesz wznowić pracę",
+  "detectDrivingTitle": "Wykryto jazdę",
+  "detectDrivingBody": "Rozpocząć jazdę od {time}?",
+  "yes": "Tak",
+  "no": "Nie",
   "disclaimer": "Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami."
 }

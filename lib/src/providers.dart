@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'data/activity_repository.dart';
 import 'data/persistent_repository.dart';
 import 'data/preferences_store.dart';
+import 'detection/driving_detector.dart';
 import 'notifications/notification_service.dart';
 
 /// Ticks once per second so the UI re-evaluates the (pure) engine.
@@ -169,4 +170,12 @@ final plannedNotificationsProvider = Provider<List<PlannedNotification>>((ref) {
     now: now,
     prefs: NotificationPreferences(leadTimes: leads),
   );
+});
+
+// ── Driving detection (skeleton) ────────────────────────────────────────────
+
+final drivingDetectorProvider = Provider<DrivingDetector>((ref) {
+  final detector = StubDrivingDetector();
+  ref.onDispose(detector.dispose);
+  return detector;
 });

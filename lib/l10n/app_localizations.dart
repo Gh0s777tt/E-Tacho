@@ -374,6 +374,30 @@ abstract class AppLocalizations {
   /// **'You may resume work'**
   String get notifResume;
 
+  /// No description provided for @detectDrivingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Driving detected'**
+  String get detectDrivingTitle;
+
+  /// No description provided for @detectDrivingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Start driving from {time}?'**
+  String detectDrivingBody(String time);
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
   /// No description provided for @disclaimer.
   ///
   /// In en, this message translates to:

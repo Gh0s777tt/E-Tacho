@@ -57,5 +57,14 @@
   "notifFortnightly": "Two-week driving limit is approaching",
   "notifWorkBreak": "A work break is due",
   "notifResume": "You may resume work",
+  "detectDrivingTitle": "Driving detected",
+  "detectDrivingBody": "Start driving from {time}?",
+  "@detectDrivingBody": {
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+  "yes": "Yes",
+  "no": "No",
   "disclaimer": "A supporting tool only — it does not replace the tachograph and does not guarantee compliance."
 }
