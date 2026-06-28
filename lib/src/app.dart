@@ -18,6 +18,7 @@ class ETachoApp extends ConsumerWidget {
       theme: buildTheme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      locale: ref.watch(localeProvider),
       home: accepted ? const HomeScreen() : const OnboardingScreen(),
     );
   }

@@ -254,6 +254,84 @@ abstract class AppLocalizations {
   /// **'No activity yet — pick a state below.'**
   String get noData;
 
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsBuffer.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning buffer'**
+  String get settingsBuffer;
+
+  /// No description provided for @settingsTimeZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Base time zone'**
+  String get settingsTimeZone;
+
+  /// No description provided for @settingsLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// No description provided for @languageSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get languageSystem;
+
+  /// No description provided for @settingsExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export day (CSV) to clipboard'**
+  String get settingsExport;
+
+  /// No description provided for @settingsReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset data'**
+  String get settingsReset;
+
+  /// No description provided for @resetConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset data?'**
+  String get resetConfirmTitle;
+
+  /// No description provided for @resetConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes all recorded activity.'**
+  String get resetConfirmBody;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @exportCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get exportCopied;
+
+  /// No description provided for @resetDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Data cleared'**
+  String get resetDone;
+
   /// No description provided for @disclaimer.
   ///
   /// In en, this message translates to:

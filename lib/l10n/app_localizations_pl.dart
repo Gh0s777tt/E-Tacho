@@ -93,6 +93,45 @@ class AppLocalizationsPl extends AppLocalizations {
   String get noData => 'Brak aktywności — wybierz stan poniżej.';
 
   @override
+  String get settingsTitle => 'Ustawienia';
+
+  @override
+  String get settingsBuffer => 'Bufor ostrzeżenia';
+
+  @override
+  String get settingsTimeZone => 'Strefa bazowa';
+
+  @override
+  String get settingsLanguage => 'Język';
+
+  @override
+  String get languageSystem => 'Systemowy';
+
+  @override
+  String get settingsExport => 'Eksport dnia (CSV) do schowka';
+
+  @override
+  String get settingsReset => 'Reset danych';
+
+  @override
+  String get resetConfirmTitle => 'Zresetować dane?';
+
+  @override
+  String get resetConfirmBody => 'To trwale usunie całą zapisaną aktywność.';
+
+  @override
+  String get cancel => 'Anuluj';
+
+  @override
+  String get reset => 'Resetuj';
+
+  @override
+  String get exportCopied => 'Skopiowano do schowka';
+
+  @override
+  String get resetDone => 'Dane wyczyszczone';
+
+  @override
   String get disclaimer =>
       'Narzędzie pomocnicze — nie zastępuje tachografu i nie gwarantuje zgodności z przepisami.';
 }

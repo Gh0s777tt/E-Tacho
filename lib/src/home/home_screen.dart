@@ -6,6 +6,7 @@ import '../../l10n/app_localizations.dart';
 import '../format.dart';
 import '../history/history_screen.dart';
 import '../providers.dart';
+import '../settings/settings_screen.dart';
 import '../ui_labels.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -27,6 +28,13 @@ class HomeScreen extends ConsumerWidget {
             tooltip: l.historyTitle,
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (_) => const HistoryScreen()),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: l.settingsTitle,
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const SettingsScreen()),
             ),
           ),
         ],

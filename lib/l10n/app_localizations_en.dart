@@ -93,6 +93,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noData => 'No activity yet — pick a state below.';
 
   @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsBuffer => 'Warning buffer';
+
+  @override
+  String get settingsTimeZone => 'Base time zone';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get languageSystem => 'System';
+
+  @override
+  String get settingsExport => 'Export day (CSV) to clipboard';
+
+  @override
+  String get settingsReset => 'Reset data';
+
+  @override
+  String get resetConfirmTitle => 'Reset data?';
+
+  @override
+  String get resetConfirmBody =>
+      'This permanently deletes all recorded activity.';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get exportCopied => 'Copied to clipboard';
+
+  @override
+  String get resetDone => 'Data cleared';
+
+  @override
   String get disclaimer =>
       'A supporting tool only — it does not replace the tachograph and does not guarantee compliance.';
 }

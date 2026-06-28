@@ -37,5 +37,18 @@
   "historyTitle": "History",
   "historyEmpty": "No activity recorded yet.",
   "noData": "No activity yet — pick a state below.",
+  "settingsTitle": "Settings",
+  "settingsBuffer": "Warning buffer",
+  "settingsTimeZone": "Base time zone",
+  "settingsLanguage": "Language",
+  "languageSystem": "System",
+  "settingsExport": "Export day (CSV) to clipboard",
+  "settingsReset": "Reset data",
+  "resetConfirmTitle": "Reset data?",
+  "resetConfirmBody": "This permanently deletes all recorded activity.",
+  "cancel": "Cancel",
+  "reset": "Reset",
+  "exportCopied": "Copied to clipboard",
+  "resetDone": "Data cleared",
   "disclaimer": "A supporting tool only — it does not replace the tachograph and does not guarantee compliance."
 }

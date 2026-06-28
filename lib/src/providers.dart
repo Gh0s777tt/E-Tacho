@@ -1,4 +1,5 @@
 import 'package:compliance_engine/compliance_engine.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -6,8 +7,7 @@ import 'data/activity_repository.dart';
 import 'data/persistent_repository.dart';
 import 'data/preferences_store.dart';
 
-/// Ticks once per second so the UI re-evaluates the (pure) engine. The engine
-/// itself holds no timer.
+/// Ticks once per second so the UI re-evaluates the (pure) engine.
 final nowProvider = StreamProvider<DateTime>((ref) async* {
   yield DateTime.now().toUtc();
   yield* Stream<DateTime>.periodic(
@@ -18,28 +18,93 @@ final nowProvider = StreamProvider<DateTime>((ref) async* {
 
 final rulesProvider = Provider<RulesPack>((ref) => RulesPack.defaultEuPl);
 
-final safetyBufferProvider =
-    Provider<Duration>((ref) => const Duration(minutes: 30));
-
-/// Base time zone for week/duty boundaries. Driver-configurable later.
-final baseLocationProvider =
-    Provider<tz.Location>((ref) => tz.getLocation('Europe/Warsaw'));
-
 final engineProvider = Provider<ComplianceEngine>((ref) => ComplianceEngine());
 
-/// Activity storage — Drift (SQLite) on device, in-memory on web / in tests.
+// ── Settings ────────────────────────────────────────────────────────────────
+
+class SettingsState {
+  const SettingsState({
+    required this.bufferMinutes,
+    required this.timeZoneId,
+    required this.localeCode,
+  });
+
+  final int bufferMinutes;
+  final String timeZoneId;
+  final String? localeCode;
+}
+
+class SettingsController extends StateNotifier<SettingsState> {
+  SettingsController(this._store)
+      : super(SettingsState(
+          bufferMinutes: _store.bufferMinutes,
+          timeZoneId: _store.timeZoneId,
+          localeCode: _store.localeCode,
+        ));
+
+  final PreferencesStore _store;
+
+  Future<void> setBufferMinutes(int value) async {
+    await _store.setBufferMinutes(value);
+    state = SettingsState(
+      bufferMinutes: value,
+      timeZoneId: state.timeZoneId,
+      localeCode: state.localeCode,
+    );
+  }
+
+  Future<void> setTimeZoneId(String value) async {
+    await _store.setTimeZoneId(value);
+    state = SettingsState(
+      bufferMinutes: state.bufferMinutes,
+      timeZoneId: value,
+      localeCode: state.localeCode,
+    );
+  }
+
+  Future<void> setLocaleCode(String? value) async {
+    await _store.setLocaleCode(value);
+    state = SettingsState(
+      bufferMinutes: state.bufferMinutes,
+      timeZoneId: state.timeZoneId,
+      localeCode: value,
+    );
+  }
+}
+
+final settingsProvider =
+    StateNotifierProvider<SettingsController, SettingsState>(
+  (ref) => SettingsController(ref.watch(preferencesStoreProvider)),
+);
+
+final safetyBufferProvider = Provider<Duration>(
+  (ref) => Duration(minutes: ref.watch(settingsProvider).bufferMinutes),
+);
+
+/// Base time zone for week/duty boundaries (driver-set in settings).
+final baseLocationProvider = Provider<tz.Location>(
+  (ref) => tz.getLocation(ref.watch(settingsProvider).timeZoneId),
+);
+
+/// Locale override; null follows the system language.
+final localeProvider = Provider<Locale?>((ref) {
+  final code = ref.watch(settingsProvider).localeCode;
+  return code == null ? null : Locale(code);
+});
+
+// ── Activity storage ──────────────────────────────────────────────────────
+
+/// Drift (SQLite) on device, in-memory on web / in tests.
 final activityRepositoryProvider = Provider<ActivityRepository>((ref) {
   final repository = createPersistentRepository();
   ref.onDispose(repository.dispose);
   return repository;
 });
 
-/// Live activity log, oldest first.
 final activityEventsProvider = StreamProvider<List<ActivityEvent>>((ref) {
   return ref.watch(activityRepositoryProvider).watch();
 });
 
-/// Full compliance snapshot, recomputed on each clock tick or log change.
 final complianceProvider = Provider<ComplianceState>((ref) {
   final now = ref.watch(nowProvider).valueOrNull ?? DateTime.now().toUtc();
   final events =
@@ -53,13 +118,13 @@ final complianceProvider = Provider<ComplianceState>((ref) {
       );
 });
 
-/// Key-value preferences (consent flag now; buffer/locale/tz later).
+// ── Preferences / onboarding ────────────────────────────────────────────────
+
 /// Overridden in main with a SharedPreferences-backed store.
 final preferencesStoreProvider = Provider<PreferencesStore>((ref) {
   throw UnimplementedError('preferencesStoreProvider must be overridden');
 });
 
-/// Tracks whether the driver has accepted the disclaimer + GDPR consent.
 class OnboardingController extends StateNotifier<bool> {
   OnboardingController(this._store) : super(_store.onboardingAccepted);
 

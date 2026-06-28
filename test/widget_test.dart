@@ -96,4 +96,29 @@ void main() {
     // Consent accepted -> home screen is shown.
     expect(find.text('E-Tacho'), findsOneWidget);
   });
+
+  testWidgets('opens the settings screen from the app bar', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          nowProvider.overrideWith(
+            (ref) => Stream<DateTime>.value(DateTime.utc(2035, 1, 1)),
+          ),
+          activityRepositoryProvider
+              .overrideWithValue(InMemoryActivityRepository()),
+          preferencesStoreProvider.overrideWithValue(
+            InMemoryPreferencesStore(true),
+          ),
+        ],
+        child: const ETachoApp(),
+      ),
+    );
+    await tester.pump();
+
+    await tester.tap(find.byIcon(Icons.settings));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Settings'), findsOneWidget);
+    expect(find.text('Warning buffer'), findsOneWidget);
+  });
 }
