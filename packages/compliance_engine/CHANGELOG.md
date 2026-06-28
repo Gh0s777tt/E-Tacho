@@ -12,7 +12,9 @@ Initial compliance engine (MVP, solo mode).
   fortnightly driving (90h), PL weekly working time (60h), PL night work (10h),
   PL working-time break (30/45 min after 6h, art. 13).
 - `ComplianceEngine.evaluate(...)`: pure aggregator returning `ComplianceState`.
-- 49 unit tests (happy-path + violation per rule, RulesPack parsing,
-  time-zone + midnight crossing, duty reset).
+- `NotificationPlanner`: projects a `ComplianceState` into a cancellable set of
+  local notifications (lead-time limit alerts + may-resume-work).
+- 53 unit tests (happy-path + violation per rule, RulesPack parsing,
+  time-zone + midnight crossing, duty reset, notification planning).
 
 All limits are defaults pending legal review — see `docs/LEGAL_VERIFICATION.md`.

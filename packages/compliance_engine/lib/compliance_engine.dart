@@ -17,6 +17,9 @@ export 'src/models/counter_type.dart';
 export 'src/models/required_action.dart';
 export 'src/models/rules_pack.dart';
 export 'src/models/violation.dart';
+// Notifications.
+export 'src/notifications/notification_planner.dart';
+export 'src/notifications/planned_notification.dart';
 // Timeline.
 export 'src/timeline/activity_interval.dart';
 export 'src/timeline/activity_timeline.dart';

@@ -46,6 +46,14 @@ See [`docs/LEGAL_VERIFICATION.md`](../../docs/LEGAL_VERIFICATION.md) for the
 defaults pending legal review and the known gaps (split daily rest, weekly rest
 + compensation, crew mode).
 
+## Notifications
+
+`NotificationPlanner.plan(state, now, prefs)` projects the current
+`ComplianceState` into a sorted, cancellable list of `PlannedNotification`s
+(absolute UTC fire times): lead-time alerts (30 / 15 / now) before each limit,
+plus a "may resume work" alert after a rest. The app diffs this against the
+pending local notifications. Pure and unit-tested.
+
 ## Usage
 
 ```dart
