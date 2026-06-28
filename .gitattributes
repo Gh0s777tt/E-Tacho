@@ -1,0 +1,17 @@
+# Normalise line endings: LF in the repo and working tree, CRLF only for
+# Windows-specific scripts.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Treat common binaries as binary.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.jks binary
+*.keystore binary
+*.ttf binary
+*.otf binary

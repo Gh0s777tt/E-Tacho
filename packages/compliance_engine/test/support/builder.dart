@@ -1,5 +1,4 @@
 import 'package:compliance_engine/compliance_engine.dart';
-import 'package:compliance_engine/src/counters/counter.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 /// A timeline segment: `(activity, durationInMinutes)`.

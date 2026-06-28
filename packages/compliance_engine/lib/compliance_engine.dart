@@ -5,7 +5,10 @@
 /// unit-testable without an emulator.
 library;
 
-// Models
+// Engine entry point + extension point.
+export 'src/counters/counter.dart' show Counter, CounterContext, CounterResult;
+export 'src/engine/compliance_engine.dart';
+// Models.
 export 'src/models/activity_event.dart';
 export 'src/models/activity_type.dart';
 export 'src/models/compliance_state.dart';
@@ -14,7 +17,6 @@ export 'src/models/counter_type.dart';
 export 'src/models/required_action.dart';
 export 'src/models/rules_pack.dart';
 export 'src/models/violation.dart';
-
-// Timeline
+// Timeline.
 export 'src/timeline/activity_interval.dart';
 export 'src/timeline/activity_timeline.dart';
