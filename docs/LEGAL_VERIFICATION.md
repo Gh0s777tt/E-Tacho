@@ -76,7 +76,9 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
 
 ## 3. Known gaps (not yet implemented — by design, MVP)
 
-- **Crew / multi-manning** (30h duty window, availability handling). Stage 2.
+- **Crew / multi-manning**: the 30h duty window is implemented (`DutyMode.crew`).
+  The availability-as-break nuance (passenger time counting as a break) and
+  dual-device sync are not yet done.
 - **Ferry/train, AETR** rules. Out of scope.
 
 ## 4. Required product disclaimers

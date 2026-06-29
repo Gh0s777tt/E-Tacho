@@ -87,4 +87,27 @@ void main() {
       expect(inUtc.counter(CounterType.weeklyDriving)!.used, mins(60));
     });
   });
+
+  test('crew mode uses the 30h duty window', () {
+    final tl = timeline(utc(2026, 6, 9, 0), [
+      (ActivityType.rest, 660),
+      (ActivityType.driving, 1500), // 25h since the duty start
+    ]);
+    final solo = evalUtc(tl);
+    final crew = engine.evaluate(
+      events: tl.events,
+      rules: RulesPack.defaultEuPl,
+      now: tl.now,
+      timeZone: tz.UTC,
+      dutyMode: DutyMode.crew,
+    );
+    expect(
+      solo.violations.any((v) => v.counter == CounterType.dutyWindow),
+      isTrue,
+    );
+    expect(
+      crew.violations.any((v) => v.counter == CounterType.dutyWindow),
+      isFalse,
+    );
+  });
 }

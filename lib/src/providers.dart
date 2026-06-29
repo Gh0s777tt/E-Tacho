@@ -31,11 +31,13 @@ class SettingsState {
     required this.bufferMinutes,
     required this.timeZoneId,
     required this.localeCode,
+    required this.crewMode,
   });
 
   final int bufferMinutes;
   final String timeZoneId;
   final String? localeCode;
+  final bool crewMode;
 }
 
 class SettingsController extends StateNotifier<SettingsState> {
@@ -44,6 +46,7 @@ class SettingsController extends StateNotifier<SettingsState> {
           bufferMinutes: _store.bufferMinutes,
           timeZoneId: _store.timeZoneId,
           localeCode: _store.localeCode,
+          crewMode: _store.crewMode,
         ));
 
   final PreferencesStore _store;
@@ -54,6 +57,7 @@ class SettingsController extends StateNotifier<SettingsState> {
       bufferMinutes: value,
       timeZoneId: state.timeZoneId,
       localeCode: state.localeCode,
+      crewMode: state.crewMode,
     );
   }
 
@@ -63,6 +67,7 @@ class SettingsController extends StateNotifier<SettingsState> {
       bufferMinutes: state.bufferMinutes,
       timeZoneId: value,
       localeCode: state.localeCode,
+      crewMode: state.crewMode,
     );
   }
 
@@ -72,6 +77,17 @@ class SettingsController extends StateNotifier<SettingsState> {
       bufferMinutes: state.bufferMinutes,
       timeZoneId: state.timeZoneId,
       localeCode: value,
+      crewMode: state.crewMode,
+    );
+  }
+
+  Future<void> setCrewMode(bool value) async {
+    await _store.setCrewMode(value);
+    state = SettingsState(
+      bufferMinutes: state.bufferMinutes,
+      timeZoneId: state.timeZoneId,
+      localeCode: state.localeCode,
+      crewMode: value,
     );
   }
 }
@@ -96,6 +112,10 @@ final localeProvider = Provider<Locale?>((ref) {
   return code == null ? null : Locale(code);
 });
 
+final dutyModeProvider = Provider<DutyMode>(
+  (ref) => ref.watch(settingsProvider).crewMode ? DutyMode.crew : DutyMode.solo,
+);
+
 // ── Activity storage ──────────────────────────────────────────────────────
 
 /// Drift (SQLite) on device, in-memory on web / in tests.
@@ -119,6 +139,7 @@ final complianceProvider = Provider<ComplianceState>((ref) {
         now: now,
         timeZone: ref.watch(baseLocationProvider),
         safetyBuffer: ref.watch(safetyBufferProvider),
+        dutyMode: ref.watch(dutyModeProvider),
       );
 });
 
@@ -163,6 +184,7 @@ final plannedNotificationsProvider = Provider<List<PlannedNotification>>((ref) {
         now: now,
         timeZone: ref.watch(baseLocationProvider),
         safetyBuffer: buffer,
+        dutyMode: ref.watch(dutyModeProvider),
       );
   final leads = <Duration>{buffer, const Duration(minutes: 15), Duration.zero}
       .toList()

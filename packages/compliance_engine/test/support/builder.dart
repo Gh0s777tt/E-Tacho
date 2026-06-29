@@ -27,6 +27,7 @@ CounterContext context(
   RulesPack? rules,
   tz.Location? location,
   Duration buffer = const Duration(minutes: 30),
+  DutyMode dutyMode = DutyMode.solo,
 }) {
   return CounterContext(
     timeline: ActivityTimeline.fromEvents(tl.events, now: tl.now),
@@ -34,6 +35,7 @@ CounterContext context(
     now: tl.now,
     timeZone: location ?? tz.UTC,
     buffer: buffer,
+    dutyMode: dutyMode,
   );
 }
 

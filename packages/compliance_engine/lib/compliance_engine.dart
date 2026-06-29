@@ -14,6 +14,7 @@ export 'src/models/activity_type.dart';
 export 'src/models/compliance_state.dart';
 export 'src/models/counter_status.dart';
 export 'src/models/counter_type.dart';
+export 'src/models/duty_mode.dart';
 export 'src/models/required_action.dart';
 export 'src/models/rules_pack.dart';
 export 'src/models/violation.dart';

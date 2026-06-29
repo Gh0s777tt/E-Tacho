@@ -108,6 +108,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguage => 'Language';
 
   @override
+  String get settingsCrewMode => 'Crew mode (two drivers)';
+
+  @override
   String get languageSystem => 'System';
 
   @override

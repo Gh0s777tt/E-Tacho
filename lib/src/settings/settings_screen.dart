@@ -71,6 +71,13 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ),
           const Divider(),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(l.settingsCrewMode),
+            value: settings.crewMode,
+            onChanged: controller.setCrewMode,
+          ),
+          const Divider(),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.download),

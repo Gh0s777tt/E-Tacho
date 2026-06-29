@@ -108,6 +108,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get settingsLanguage => 'Język';
 
   @override
+  String get settingsCrewMode => 'Tryb załogi (dwóch kierowców)';
+
+  @override
   String get languageSystem => 'Systemowy';
 
   @override

@@ -31,6 +31,7 @@
   "settingsBuffer": "Bufor ostrzeżenia",
   "settingsTimeZone": "Strefa bazowa",
   "settingsLanguage": "Język",
+  "settingsCrewMode": "Tryb załogi (dwóch kierowców)",
   "languageSystem": "Systemowy",
   "settingsExport": "Eksport dnia (CSV) do schowka",
   "settingsReset": "Reset danych",

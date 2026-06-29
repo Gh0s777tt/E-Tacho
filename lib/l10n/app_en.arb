@@ -42,6 +42,7 @@
   "settingsBuffer": "Warning buffer",
   "settingsTimeZone": "Base time zone",
   "settingsLanguage": "Language",
+  "settingsCrewMode": "Crew mode (two drivers)",
   "languageSystem": "System",
   "settingsExport": "Export day (CSV) to clipboard",
   "settingsReset": "Reset data",

@@ -78,6 +78,24 @@ void main() {
       final r = const DutyWindowCounter().compute(ctx);
       expect(r.violations, isEmpty);
     });
+
+    test('crew mode widens the window to 30h', () {
+      final tl = timeline(utc(2026, 6, 9, 0), [
+        (ActivityType.rest, 660),
+        (ActivityType.driving, 1500), // 25h since the duty start
+      ]);
+      // Solo (24h) violates; crew (30h) does not.
+      expect(
+        const DutyWindowCounter().compute(context(tl)).violations,
+        isNotEmpty,
+      );
+      expect(
+        const DutyWindowCounter()
+            .compute(context(tl, dutyMode: DutyMode.crew))
+            .violations,
+        isEmpty,
+      );
+    });
   });
 
   group('DailyRestCounter', () {

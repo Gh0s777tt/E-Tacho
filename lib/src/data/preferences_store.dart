@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Small key-value settings: consent flag, warning buffer, base time zone and
-/// locale override.
+/// Small key-value settings: consent flag, warning buffer, base time zone,
+/// locale override and crew (multi-manning) mode.
 abstract class PreferencesStore {
   bool get onboardingAccepted;
   Future<void> setOnboardingAccepted(bool value);
@@ -15,6 +15,9 @@ abstract class PreferencesStore {
   /// Null means "follow the system language".
   String? get localeCode;
   Future<void> setLocaleCode(String? value);
+
+  bool get crewMode;
+  Future<void> setCrewMode(bool value);
 }
 
 class SharedPreferencesStore implements PreferencesStore {
@@ -25,6 +28,7 @@ class SharedPreferencesStore implements PreferencesStore {
   static const String _bufferKey = 'buffer_minutes';
   static const String _timeZoneKey = 'time_zone_id';
   static const String _localeKey = 'locale_code';
+  static const String _crewKey = 'crew_mode';
 
   @override
   bool get onboardingAccepted => _prefs.getBool(_onboardingKey) ?? false;
@@ -35,8 +39,7 @@ class SharedPreferencesStore implements PreferencesStore {
   @override
   int get bufferMinutes => _prefs.getInt(_bufferKey) ?? 30;
   @override
-  Future<void> setBufferMinutes(int value) =>
-      _prefs.setInt(_bufferKey, value);
+  Future<void> setBufferMinutes(int value) => _prefs.setInt(_bufferKey, value);
 
   @override
   String get timeZoneId => _prefs.getString(_timeZoneKey) ?? 'Europe/Warsaw';
@@ -54,6 +57,11 @@ class SharedPreferencesStore implements PreferencesStore {
       await _prefs.setString(_localeKey, value);
     }
   }
+
+  @override
+  bool get crewMode => _prefs.getBool(_crewKey) ?? false;
+  @override
+  Future<void> setCrewMode(bool value) => _prefs.setBool(_crewKey, value);
 }
 
 /// In-memory implementation for tests.
@@ -64,6 +72,7 @@ class InMemoryPreferencesStore implements PreferencesStore {
   int _bufferMinutes = 30;
   String _timeZoneId = 'Europe/Warsaw';
   String? _localeCode;
+  bool _crewMode = false;
 
   @override
   bool get onboardingAccepted => _onboardingAccepted;
@@ -91,5 +100,12 @@ class InMemoryPreferencesStore implements PreferencesStore {
   @override
   Future<void> setLocaleCode(String? value) async {
     _localeCode = value;
+  }
+
+  @override
+  bool get crewMode => _crewMode;
+  @override
+  Future<void> setCrewMode(bool value) async {
+    _crewMode = value;
   }
 }

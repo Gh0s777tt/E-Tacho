@@ -20,6 +20,7 @@ import '../models/activity_event.dart';
 import '../models/compliance_state.dart';
 import '../models/counter_status.dart';
 import '../models/counter_type.dart';
+import '../models/duty_mode.dart';
 import '../models/required_action.dart';
 import '../models/rules_pack.dart';
 import '../models/violation.dart';
@@ -63,6 +64,7 @@ class ComplianceEngine {
     required DateTime now,
     required tz.Location timeZone,
     Duration safetyBuffer = const Duration(minutes: 30),
+    DutyMode dutyMode = DutyMode.solo,
   }) {
     assert(now.isUtc, 'now must be UTC');
 
@@ -73,6 +75,7 @@ class ComplianceEngine {
       now: now,
       timeZone: timeZone,
       buffer: safetyBuffer,
+      dutyMode: dutyMode,
     );
 
     final statuses = <CounterType, CounterStatus>{};

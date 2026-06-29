@@ -3,6 +3,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../models/activity_type.dart';
 import '../models/counter_status.dart';
 import '../models/counter_type.dart';
+import '../models/duty_mode.dart';
 import '../models/required_action.dart';
 import '../models/rules_pack.dart';
 import '../models/violation.dart';
@@ -16,6 +17,7 @@ class CounterContext {
     required this.now,
     required this.timeZone,
     required this.buffer,
+    this.dutyMode = DutyMode.solo,
   }) : assert(now.isUtc, 'now must be UTC');
 
   final ActivityTimeline timeline;
@@ -25,6 +27,9 @@ class CounterContext {
 
   /// The driver's safety buffer (how early they want to be warned).
   final Duration buffer;
+
+  /// Solo or crew (multi-manning) — affects the duty window.
+  final DutyMode dutyMode;
 
   /// Anchor for the current daily driving period and duty window: the end of
   /// the last daily/weekly rest, falling back to the start of recorded history.

@@ -284,6 +284,12 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get settingsLanguage;
 
+  /// No description provided for @settingsCrewMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Crew mode (two drivers)'**
+  String get settingsCrewMode;
+
   /// No description provided for @languageSystem.
   ///
   /// In en, this message translates to:
