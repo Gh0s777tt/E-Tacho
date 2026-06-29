@@ -43,6 +43,9 @@ enum CounterType {
 
   /// Outstanding compensation owed for reduced weekly rests (informational).
   weeklyRestCompensation,
+
+  /// Average weekly working time over the reference period (PL: 48h).
+  averageWeeklyWorkingTime,
 }
 
 /// Severity of a counter relative to its limit and the driver's safety buffer.

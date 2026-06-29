@@ -44,6 +44,7 @@ class RulesPack extends Equatable {
     required this.reducedWeeklyRestsPerFortnightMax,
     required this.weeklyWorkingTimeMax,
     required this.weeklyWorkingTimeAverage,
+    required this.referencePeriodWeeks,
     required this.nightWorkMaxPerDuty,
     required this.nightWindowStart,
     required this.nightWindowEnd,
@@ -120,8 +121,14 @@ class RulesPack extends Equatable {
 
   /// Average weekly working time over the reference period (48h). Averaging
   /// over the multi-month reference period is a stage-2 feature.
-  // TODO: zweryfikować z przepisami — uśrednianie w okresie rozliczeniowym (etap 2).
+  // TODO: zweryfikować z przepisami — uśrednianie w okresie rozliczeniowym.
   final Duration weeklyWorkingTimeAverage;
+
+  /// Reference period (in ISO weeks) over which [weeklyWorkingTimeAverage] is
+  /// averaged. PL default ~4 months (17 weeks); extendable to 6 months by
+  /// agreement.
+  // TODO: zweryfikować z przepisami — długość okresu (4 vs 6 miesięcy) i czy stały vs kroczący.
+  final int referencePeriodWeeks;
 
   /// Max working time within a duty period when any night work is performed
   /// (10h).
@@ -168,6 +175,7 @@ class RulesPack extends Equatable {
     reducedWeeklyRestsPerFortnightMax: 1,
     weeklyWorkingTimeMax: Duration(minutes: 3600),
     weeklyWorkingTimeAverage: Duration(minutes: 2880),
+    referencePeriodWeeks: 17,
     nightWorkMaxPerDuty: Duration(minutes: 600),
     nightWindowStart: Duration.zero,
     nightWindowEnd: Duration(minutes: 240),
@@ -225,6 +233,8 @@ class RulesPack extends Equatable {
           json, 'weekly_working_time_max_min', defaultEuPl.weeklyWorkingTimeMax),
       weeklyWorkingTimeAverage: _minOr(json, 'weekly_working_time_average_min',
           defaultEuPl.weeklyWorkingTimeAverage),
+      referencePeriodWeeks: _intOr(
+          json, 'reference_period_weeks', defaultEuPl.referencePeriodWeeks),
       nightWindowStart:
           _minOr(json, 'night_window_start_min', defaultEuPl.nightWindowStart),
       nightWindowEnd:
@@ -269,6 +279,7 @@ class RulesPack extends Equatable {
             reducedWeeklyRestsPerFortnightMax,
         'weekly_working_time_max_min': weeklyWorkingTimeMax.inMinutes,
         'weekly_working_time_average_min': weeklyWorkingTimeAverage.inMinutes,
+        'reference_period_weeks': referencePeriodWeeks,
         'night_work_max_between_rests_min': nightWorkMaxPerDuty.inMinutes,
         'night_window_start_min': nightWindowStart.inMinutes,
         'night_window_end_min': nightWindowEnd.inMinutes,
@@ -326,6 +337,10 @@ class RulesPack extends Equatable {
     if (weeklyRestWindow <= Duration.zero) {
       throw const RulesPackFormatException(
           'weekly_rest_window_min must be positive');
+    }
+    if (referencePeriodWeeks <= 0) {
+      throw const RulesPackFormatException(
+          'reference_period_weeks must be positive');
     }
     if (nightWindowEnd <= nightWindowStart) {
       // TODO: support a night window that wraps past midnight.
@@ -393,6 +408,7 @@ class RulesPack extends Equatable {
         reducedWeeklyRestsPerFortnightMax,
         weeklyWorkingTimeMax,
         weeklyWorkingTimeAverage,
+        referencePeriodWeeks,
         nightWorkMaxPerDuty,
         nightWindowStart,
         nightWindowEnd,

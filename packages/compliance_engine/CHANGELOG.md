@@ -17,9 +17,12 @@ Initial compliance engine (MVP, solo mode).
 - Split daily rest (3h + 9h, art. 8(2)) recognised as a regular rest, so it does
   not consume a reduced daily-rest allowance (`RulesPack.dailyRestSplitFirst`).
 - Weekly rest (art. 8(6)): 6×24h window counter, reduced-weekly-rests-per-
-  fortnight counter (max 1), and an informational compensation-owed counter.
-- 61 unit tests (happy-path + violation per rule, RulesPack parsing,
+  fortnight counter (max 1), and a compensation-owed counter (netted against
+  excess rest beyond 45h).
+- PL average weekly working time (art. 12): cap on total working time over the
+  reference period (`RulesPack.referencePeriodWeeks`, default 17 weeks).
+- 64 unit tests (happy-path + violation per rule, RulesPack parsing,
   time-zone + midnight crossing, duty reset, notification planning, split rest,
-  weekly rest + compensation).
+  weekly rest + compensation, average working time).
 
 All limits are defaults pending legal review — see `docs/LEGAL_VERIFICATION.md`.

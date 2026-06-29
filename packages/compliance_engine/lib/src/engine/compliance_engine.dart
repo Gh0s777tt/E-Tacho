@@ -1,5 +1,6 @@
 import 'package:timezone/timezone.dart' as tz;
 
+import '../counters/average_weekly_working_time_counter.dart';
 import '../counters/continuous_driving_counter.dart';
 import '../counters/counter.dart';
 import '../counters/daily_driving_counter.dart';
@@ -51,6 +52,7 @@ class ComplianceEngine {
     WeeklyRestCounter(),
     ReducedWeeklyRestsCounter(),
     WeeklyRestCompensationCounter(),
+    AverageWeeklyWorkingTimeCounter(),
   ];
 
   final List<Counter> counters;

@@ -30,6 +30,7 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
 | Duty window (solo) | 24h | 561/2006 art. 8(2) |
 | Weekly working time (PL) | 60h single week | PL act art. 12 |
 | Avg weekly working time (PL) | 48h / reference period | PL act art. 12 |
+| Reference period (averaging) | 17 weeks (~4 months) | PL act art. 12 |
 | Night-work working-time cap (PL) | 10h per duty | PL act art. 21 |
 | Working-time break (PL) | 30 min after 6h work; 45 min if >9h | PL act art. 13 |
 
@@ -64,14 +65,17 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
    to start the next weekly rest, max one reduced weekly rest per two consecutive
    weeks, and an *informational* outstanding-compensation total (gross reductions
    over ~3 weeks). NOT yet enforced: the exact compensation deadline (end of the
-   third following week) and netting off compensation already taken (attached to
-   a ≥9h rest). (`weekly_rest_counter.dart`, `reduced_weekly_rests_counter.dart`,
-   `weekly_rest_compensation_counter.dart`)
+   third following week). Compensation is now netted against excess rest beyond
+   45h (a simplification — confirm it, and the "attached en bloc to a ≥9h rest"
+   rule is still TODO). (`weekly_rest_counter.dart`,
+   `reduced_weekly_rests_counter.dart`, `weekly_rest_compensation_counter.dart`)
+9. **48h average working time (PL art. 12).** Modelled as a cap on total working
+   time over the last `referencePeriodWeeks` ISO weeks (rolling): total ≤ 48h ×
+   weeks. Confirm the reference-period length (4 vs 6 months) and the
+   fixed-vs-rolling semantics. (`average_weekly_working_time_counter.dart`)
 
 ## 3. Known gaps (not yet implemented — by design, MVP)
 
-- **48h average** over the reference period (multi-month). Only the 60h single-
-  week cap is enforced. Stage 2.
 - **Crew / multi-manning** (30h duty window, availability handling). Stage 2.
 - **Ferry/train, AETR** rules. Out of scope.
 

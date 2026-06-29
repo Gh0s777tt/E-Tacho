@@ -1,4 +1,5 @@
 import 'package:compliance_engine/compliance_engine.dart';
+import 'package:compliance_engine/src/counters/average_weekly_working_time_counter.dart';
 import 'package:compliance_engine/src/counters/night_work_counter.dart';
 import 'package:compliance_engine/src/counters/weekly_working_time_counter.dart';
 import 'package:compliance_engine/src/counters/working_time_break_counter.dart';
@@ -125,6 +126,33 @@ void main() {
       final r = const WorkingTimeBreakCounter().compute(ctx);
       expect(r.status.used, mins(610));
       expect(r.violations.single.counter, CounterType.workingTimeBreak);
+    });
+  });
+
+  group('AverageWeeklyWorkingTimeCounter (PL)', () {
+    test('happy: well under the 48h average cap', () {
+      final ctx = context(timeline(utc(2026, 6, 8, 0), [
+        (ActivityType.driving, 600),
+      ]));
+      final r = const AverageWeeklyWorkingTimeCounter().compute(ctx);
+      expect(r.violations, isEmpty);
+    });
+
+    test('violation: above the averaged cap (short reference period)', () {
+      final rules = RulesPack.fromJson(
+        RulesPack.defaultEuPl.toJson()
+          ..['reference_period_weeks'] = 1
+          ..['weekly_working_time_average_min'] = 60,
+      );
+      final ctx = context(
+        timeline(utc(2026, 6, 8, 0), [(ActivityType.driving, 120)]),
+        rules: rules,
+      );
+      final r = const AverageWeeklyWorkingTimeCounter().compute(ctx);
+      expect(
+        r.violations.single.counter,
+        CounterType.averageWeeklyWorkingTime,
+      );
     });
   });
 }

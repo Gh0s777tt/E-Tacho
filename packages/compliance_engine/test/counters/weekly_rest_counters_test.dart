@@ -78,5 +78,17 @@ void main() {
       expect(r.status.used, Duration.zero);
       expect(r.status.level, ComplianceLevel.ok);
     });
+
+    test('nets excess rest against owed compensation', () {
+      final ctx = context(timeline(utc(2026, 6, 8, 0), [
+        (ActivityType.driving, 60),
+        (ActivityType.rest, 1440), // reduced -> owes 1260
+        (ActivityType.driving, 60),
+        (ActivityType.rest, 3600), // 60h -> credit 900
+        (ActivityType.driving, 60),
+      ]));
+      final r = const WeeklyRestCompensationCounter().compute(ctx);
+      expect(r.status.used, mins(360)); // 1260 - 900
+    });
   });
 }
