@@ -90,5 +90,15 @@ void main() {
       final r = const WeeklyRestCompensationCounter().compute(ctx);
       expect(r.status.used, mins(360)); // 1260 - 900
     });
+
+    test('compensation past the deadline is no longer outstanding', () {
+      final ctx = context(timeline(utc(2026, 5, 1, 0), [
+        (ActivityType.driving, 60),
+        (ActivityType.rest, 1440), // reduced weekly rest ~5 weeks before now
+        (ActivityType.driving, 54000),
+      ]));
+      final r = const WeeklyRestCompensationCounter().compute(ctx);
+      expect(r.status.used, Duration.zero);
+    });
   });
 }

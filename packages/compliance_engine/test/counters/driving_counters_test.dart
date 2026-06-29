@@ -92,6 +92,27 @@ void main() {
       final r = const ContinuousDrivingCounter().compute(ctx);
       expect(r.status.used, mins(180));
     });
+
+    test('crew mode: availability counts toward the break', () {
+      final tl = timeline(utc(2026, 6, 10, 6), [
+        (ActivityType.driving, 120),
+        (ActivityType.availability, 45),
+        (ActivityType.driving, 30),
+      ]);
+      // Solo: availability is not a break -> 150 min driving since last break.
+      expect(
+        const ContinuousDrivingCounter().compute(context(tl)).status.used,
+        mins(150),
+      );
+      // Crew: the 45-min availability resets the clock -> 30 min.
+      expect(
+        const ContinuousDrivingCounter()
+            .compute(context(tl, dutyMode: DutyMode.crew))
+            .status
+            .used,
+        mins(30),
+      );
+    });
   });
 
   group('DailyDrivingCounter', () {

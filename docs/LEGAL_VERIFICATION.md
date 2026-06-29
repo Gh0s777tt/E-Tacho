@@ -64,10 +64,10 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
 8. **Weekly rest + compensation (art. 8(6)-(9)).** Implemented: the 6×24h window
    to start the next weekly rest, max one reduced weekly rest per two consecutive
    weeks, and an *informational* outstanding-compensation total (gross reductions
-   over ~3 weeks). NOT yet enforced: the exact compensation deadline (end of the
-   third following week). Compensation is now netted against excess rest beyond
-   45h (a simplification — confirm it, and the "attached en bloc to a ≥9h rest"
-   rule is still TODO). (`weekly_rest_counter.dart`,
+   within the deadline horizon). The compensation deadline is modelled via
+   `weeklyRestCompensationDeadlineWeeks` (default 3); compensation is netted
+   against excess rest beyond 45h (a simplification — confirm it, and the
+   "attached en bloc to a ≥9h rest" rule is still TODO). (`weekly_rest_counter.dart`,
    `reduced_weekly_rests_counter.dart`, `weekly_rest_compensation_counter.dart`)
 9. **48h average working time (PL art. 12).** Modelled as a cap on total working
    time over the last `referencePeriodWeeks` ISO weeks (rolling): total ≤ 48h ×
@@ -76,9 +76,8 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
 
 ## 3. Known gaps (not yet implemented — by design, MVP)
 
-- **Crew / multi-manning**: the 30h duty window is implemented (`DutyMode.crew`).
-  The availability-as-break nuance (passenger time counting as a break) and
-  dual-device sync are not yet done.
+- **Crew / multi-manning**: the 30h duty window and availability-as-break (in
+  crew mode) are implemented (`DutyMode.crew`). Dual-device sync is not yet done.
 - **Ferry/train, AETR** rules. Out of scope.
 
 ## 4. Required product disclaimers

@@ -20,9 +20,13 @@ class WeeklyRestCompensationCounter implements Counter {
   CounterResult compute(CounterContext ctx) {
     final rules = ctx.rules;
     final thisWeekStart = startOfIsoWeek(ctx.now, ctx.timeZone);
-    // Look back roughly three ISO weeks (the compensation horizon).
+    // A reduction in week W must be compensated before the end of week
+    // W + deadlineWeeks, so it stays outstanding only for reductions from the
+    // last `deadlineWeeks` weeks.
     final lookbackStart = startOfIsoWeek(
-      thisWeekStart.subtract(const Duration(days: 15)),
+      thisWeekStart.subtract(
+        Duration(days: 7 * rules.weeklyRestCompensationDeadlineWeeks),
+      ),
       ctx.timeZone,
     );
 

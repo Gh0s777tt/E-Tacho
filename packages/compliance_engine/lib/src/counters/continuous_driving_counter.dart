@@ -1,6 +1,7 @@
 import '../models/activity_type.dart';
 import '../models/counter_status.dart';
 import '../models/counter_type.dart';
+import '../models/duty_mode.dart';
 import '../models/required_action.dart';
 import '../models/violation.dart';
 import 'counter.dart';
@@ -23,11 +24,16 @@ class ContinuousDrivingCounter implements Counter {
 
     var driving = Duration.zero;
     var firstPartTaken = false;
+    // In crew (multi-manning) mode, availability (e.g. riding as a passenger
+    // while the other driver drives) can count toward the break.
+    // TODO: zweryfikować z przepisami — dyspozycyjność jako przerwa w załodze.
+    final breakOnAvailability = ctx.dutyMode == DutyMode.crew;
 
     for (final iv in ctx.timeline.intervals) {
       if (iv.type == ActivityType.driving) {
         driving += iv.duration;
-      } else if (iv.type == ActivityType.rest) {
+      } else if (iv.type == ActivityType.rest ||
+          (breakOnAvailability && iv.type == ActivityType.availability)) {
         final d = iv.duration;
         if (d >= rules.breakRequired) {
           driving = Duration.zero;
@@ -39,7 +45,7 @@ class ContinuousDrivingCounter implements Counter {
           firstPartTaken = true;
         }
       }
-      // otherWork / availability: no effect on the continuous-driving clock.
+      // otherWork (and availability outside crew mode): no effect on the clock.
     }
 
     final limit = rules.continuousDrivingMax;

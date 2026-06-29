@@ -42,6 +42,7 @@ class RulesPack extends Equatable {
     required this.weeklyRestReduced,
     required this.weeklyRestWindow,
     required this.reducedWeeklyRestsPerFortnightMax,
+    required this.weeklyRestCompensationDeadlineWeeks,
     required this.weeklyWorkingTimeMax,
     required this.weeklyWorkingTimeAverage,
     required this.referencePeriodWeeks,
@@ -115,6 +116,10 @@ class RulesPack extends Equatable {
   /// Max reduced weekly rests in any two consecutive weeks (EU 561 art. 8(6)).
   final int reducedWeeklyRestsPerFortnightMax;
 
+  /// Compensation for a reduced weekly rest is due before the end of the Nth
+  /// following week (EU 561 art. 8(6): the third week).
+  final int weeklyRestCompensationDeadlineWeeks;
+
   // ── Polish Drivers' Working Time Act ─────────────────────────────────────
   /// Single-week working-time ceiling (60h).
   final Duration weeklyWorkingTimeMax;
@@ -173,6 +178,7 @@ class RulesPack extends Equatable {
     weeklyRestReduced: Duration(minutes: 1440),
     weeklyRestWindow: Duration(minutes: 8640),
     reducedWeeklyRestsPerFortnightMax: 1,
+    weeklyRestCompensationDeadlineWeeks: 3,
     weeklyWorkingTimeMax: Duration(minutes: 3600),
     weeklyWorkingTimeAverage: Duration(minutes: 2880),
     referencePeriodWeeks: 17,
@@ -229,6 +235,10 @@ class RulesPack extends Equatable {
           json,
           'reduced_weekly_rests_per_fortnight_max',
           defaultEuPl.reducedWeeklyRestsPerFortnightMax),
+      weeklyRestCompensationDeadlineWeeks: _intOr(
+          json,
+          'weekly_rest_compensation_deadline_weeks',
+          defaultEuPl.weeklyRestCompensationDeadlineWeeks),
       weeklyWorkingTimeMax: _minOr(
           json, 'weekly_working_time_max_min', defaultEuPl.weeklyWorkingTimeMax),
       weeklyWorkingTimeAverage: _minOr(json, 'weekly_working_time_average_min',
@@ -277,6 +287,8 @@ class RulesPack extends Equatable {
         'weekly_rest_window_min': weeklyRestWindow.inMinutes,
         'reduced_weekly_rests_per_fortnight_max':
             reducedWeeklyRestsPerFortnightMax,
+        'weekly_rest_compensation_deadline_weeks':
+            weeklyRestCompensationDeadlineWeeks,
         'weekly_working_time_max_min': weeklyWorkingTimeMax.inMinutes,
         'weekly_working_time_average_min': weeklyWorkingTimeAverage.inMinutes,
         'reference_period_weeks': referencePeriodWeeks,
@@ -342,6 +354,10 @@ class RulesPack extends Equatable {
       throw const RulesPackFormatException(
           'reference_period_weeks must be positive');
     }
+    if (weeklyRestCompensationDeadlineWeeks <= 0) {
+      throw const RulesPackFormatException(
+          'weekly_rest_compensation_deadline_weeks must be positive');
+    }
     if (nightWindowEnd <= nightWindowStart) {
       // TODO: support a night window that wraps past midnight.
       throw const RulesPackFormatException(
@@ -406,6 +422,7 @@ class RulesPack extends Equatable {
         weeklyRestReduced,
         weeklyRestWindow,
         reducedWeeklyRestsPerFortnightMax,
+        weeklyRestCompensationDeadlineWeeks,
         weeklyWorkingTimeMax,
         weeklyWorkingTimeAverage,
         referencePeriodWeeks,

@@ -22,9 +22,12 @@ Initial compliance engine (MVP, solo mode).
 - PL average weekly working time (art. 12): cap on total working time over the
   reference period (`RulesPack.referencePeriodWeeks`, default 17 weeks).
 - Crew mode (multi-manning): `DutyMode.solo`/`crew`; the duty window widens to
-  30h in crew mode (the availability-as-break nuance remains a TODO).
-- 66 unit tests (happy-path + violation per rule, RulesPack parsing,
+  30h and availability counts toward the break in crew mode.
+- Weekly-rest compensation now respects a deadline horizon
+  (`RulesPack.weeklyRestCompensationDeadlineWeeks`, default 3 weeks).
+- 68 unit tests (happy-path + violation per rule, RulesPack parsing,
   time-zone + midnight crossing, duty reset, notification planning, split rest,
-  weekly rest + compensation, average working time, crew mode).
+  weekly rest + compensation, average working time, crew mode + break,
+  compensation deadline).
 
 All limits are defaults pending legal review — see `docs/LEGAL_VERIFICATION.md`.
