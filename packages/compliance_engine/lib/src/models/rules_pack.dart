@@ -33,6 +33,7 @@ class RulesPack extends Equatable {
     required this.dailyRestRegular,
     required this.dailyRestReduced,
     required this.reducedDailyRestsBetweenWeeklyMax,
+    required this.dailyRestSplitFirst,
     required this.weeklyDrivingMax,
     required this.twoWeeklyDrivingMax,
     required this.dutyWindowSolo,
@@ -80,6 +81,11 @@ class RulesPack extends Equatable {
   /// [reducedDailyRestsBetweenWeeklyMax] times between two weekly rests.
   final Duration dailyRestReduced;
   final int reducedDailyRestsBetweenWeeklyMax;
+
+  /// First part of a split daily rest (EU 561 art. 8(2): >= 3h, then >= 9h).
+  /// A valid 3h+9h split is a *regular* rest, so it does not consume a reduced
+  /// daily-rest allowance.
+  final Duration dailyRestSplitFirst;
 
   /// Max weekly driving (56h).
   final Duration weeklyDrivingMax;
@@ -142,6 +148,7 @@ class RulesPack extends Equatable {
     dailyRestRegular: Duration(minutes: 660),
     dailyRestReduced: Duration(minutes: 540),
     reducedDailyRestsBetweenWeeklyMax: 3,
+    dailyRestSplitFirst: Duration(minutes: 180),
     weeklyDrivingMax: Duration(minutes: 3360),
     twoWeeklyDrivingMax: Duration(minutes: 5400),
     dutyWindowSolo: Duration(minutes: 1440),
@@ -184,6 +191,8 @@ class RulesPack extends Equatable {
       dailyRestReduced: _min(json, 'daily_rest_reduced_min'),
       reducedDailyRestsBetweenWeeklyMax:
           _int(json, 'reduced_daily_rests_between_weekly_max'),
+      dailyRestSplitFirst: _minOr(
+          json, 'daily_rest_split_first_min', defaultEuPl.dailyRestSplitFirst),
       weeklyDrivingMax: _min(json, 'weekly_driving_max_min'),
       twoWeeklyDrivingMax: _min(json, 'two_weekly_driving_max_min'),
       dutyWindowSolo: _min(json, 'duty_window_solo_min'),
@@ -231,6 +240,7 @@ class RulesPack extends Equatable {
         'daily_rest_reduced_min': dailyRestReduced.inMinutes,
         'reduced_daily_rests_between_weekly_max':
             reducedDailyRestsBetweenWeeklyMax,
+        'daily_rest_split_first_min': dailyRestSplitFirst.inMinutes,
         'weekly_driving_max_min': weeklyDrivingMax.inMinutes,
         'two_weekly_driving_max_min': twoWeeklyDrivingMax.inMinutes,
         'duty_window_solo_min': dutyWindowSolo.inMinutes,
@@ -278,6 +288,11 @@ class RulesPack extends Equatable {
     if (dailyRestReduced > dailyRestRegular) {
       throw const RulesPackFormatException(
           'daily_rest_reduced_min must be <= daily_rest_regular_min');
+    }
+    if (dailyRestSplitFirst <= Duration.zero ||
+        dailyRestSplitFirst >= dailyRestReduced) {
+      throw const RulesPackFormatException(
+          'daily_rest_split_first_min must be > 0 and < daily_rest_reduced_min');
     }
     if (twoWeeklyDrivingMax < weeklyDrivingMax) {
       throw const RulesPackFormatException(
@@ -337,6 +352,7 @@ class RulesPack extends Equatable {
         dailyRestRegular,
         dailyRestReduced,
         reducedDailyRestsBetweenWeeklyMax,
+        dailyRestSplitFirst,
         weeklyDrivingMax,
         twoWeeklyDrivingMax,
         dutyWindowSolo,

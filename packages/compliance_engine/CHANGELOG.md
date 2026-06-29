@@ -14,7 +14,9 @@ Initial compliance engine (MVP, solo mode).
 - `ComplianceEngine.evaluate(...)`: pure aggregator returning `ComplianceState`.
 - `NotificationPlanner`: projects a `ComplianceState` into a cancellable set of
   local notifications (lead-time limit alerts + may-resume-work).
-- 53 unit tests (happy-path + violation per rule, RulesPack parsing,
-  time-zone + midnight crossing, duty reset, notification planning).
+- Split daily rest (3h + 9h, art. 8(2)) recognised as a regular rest, so it does
+  not consume a reduced daily-rest allowance (`RulesPack.dailyRestSplitFirst`).
+- 55 unit tests (happy-path + violation per rule, RulesPack parsing,
+  time-zone + midnight crossing, duty reset, notification planning, split rest).
 
 All limits are defaults pending legal review — see `docs/LEGAL_VERIFICATION.md`.

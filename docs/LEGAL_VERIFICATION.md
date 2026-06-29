@@ -21,6 +21,7 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
 | Extended daily driving | 10h, max 2×/week | 561/2006 art. 6(1) |
 | Daily rest — regular / reduced | 11h / 9h | 561/2006 art. 8(2),(4) |
 | Reduced daily rests between weekly rests | max 3 | 561/2006 art. 8(4) |
+| Split daily rest (first part) | 3h, then 9h | 561/2006 art. 8(2) |
 | Weekly driving | 56h | 561/2006 art. 6(2) |
 | Two-week driving | 90h | 561/2006 art. 6(3) |
 | Duty window (solo) | 24h | 561/2006 art. 8(2) |
@@ -52,10 +53,13 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
    accrues toward it and resets the clock). Confirm: "consecutive" vs cumulative
    basis, the 9h threshold basis (daily working time), and part accumulation.
    (`working_time_break_counter.dart`)
+7. **Split daily rest (art. 8(2)).** A 9–11h rest is treated as the *regular*
+   second part of a split (and so not a reduced rest) when a ≥3h rest preceded it
+   earlier in the same day. Confirm the detection (first part 3h..<9h, second
+   part ≥9h, driving allowed between). (`reduced_daily_rests_counter.dart`)
 
 ## 3. Known gaps (not yet implemented — by design, MVP)
 
-- **Split daily rest** (3h + 9h). Currently a daily rest is a single block ≥ 9h.
 - **Weekly rest + compensation** (45h / 24h reduced, art. 8; compensation art. 8(6)).
   Stage 2.
 - **48h average** over the reference period (multi-month). Only the 60h single-

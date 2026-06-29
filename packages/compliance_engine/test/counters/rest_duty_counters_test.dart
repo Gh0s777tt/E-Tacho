@@ -156,5 +156,37 @@ void main() {
       expect(r.status.count, 1);
       expect(r.violations, isEmpty);
     });
+
+    test('a 3h + 9h split daily rest is not counted as reduced', () {
+      final ctx = context(timeline(utc(2026, 6, 8, 0), [
+        (ActivityType.driving, 600),
+        (ActivityType.rest, 180), // first part (3h)
+        (ActivityType.driving, 120),
+        (ActivityType.rest, 540), // second part (9h) -> regular, not reduced
+        (ActivityType.driving, 60),
+      ]));
+      final r = const ReducedDailyRestsCounter().compute(ctx);
+      expect(r.status.count, 0);
+      expect(r.violations, isEmpty);
+    });
+
+    test('a split rest does not consume the reduced-rest allowance', () {
+      final ctx = context(timeline(utc(2026, 6, 8, 0), [
+        (ActivityType.driving, 600),
+        (ActivityType.rest, 540), // reduced 1
+        (ActivityType.driving, 600),
+        (ActivityType.rest, 540), // reduced 2
+        (ActivityType.driving, 600),
+        (ActivityType.rest, 540), // reduced 3
+        (ActivityType.driving, 600),
+        (ActivityType.rest, 180), // split first part
+        (ActivityType.driving, 120),
+        (ActivityType.rest, 540), // split second part -> regular
+        (ActivityType.driving, 60),
+      ]));
+      final r = const ReducedDailyRestsCounter().compute(ctx);
+      expect(r.status.count, 3);
+      expect(r.violations, isEmpty);
+    });
   });
 }
