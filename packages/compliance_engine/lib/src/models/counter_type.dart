@@ -34,6 +34,15 @@ enum CounterType {
 
   /// Break required after consecutive working time (PL art. 13: 30/45 min).
   workingTimeBreak,
+
+  /// Window to start the next weekly rest (EU 561 art. 8(6): 6x24h).
+  weeklyRest,
+
+  /// Reduced weekly rests used in the current fortnight (EU 561: max 1).
+  reducedWeeklyRests,
+
+  /// Outstanding compensation owed for reduced weekly rests (informational).
+  weeklyRestCompensation,
 }
 
 /// Severity of a counter relative to its limit and the driver's safety buffer.

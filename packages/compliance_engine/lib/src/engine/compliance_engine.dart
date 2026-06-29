@@ -9,7 +9,10 @@ import '../counters/extended_driving_days_counter.dart';
 import '../counters/fortnightly_driving_counter.dart';
 import '../counters/night_work_counter.dart';
 import '../counters/reduced_daily_rests_counter.dart';
+import '../counters/reduced_weekly_rests_counter.dart';
 import '../counters/weekly_driving_counter.dart';
+import '../counters/weekly_rest_compensation_counter.dart';
+import '../counters/weekly_rest_counter.dart';
 import '../counters/weekly_working_time_counter.dart';
 import '../counters/working_time_break_counter.dart';
 import '../models/activity_event.dart';
@@ -45,6 +48,9 @@ class ComplianceEngine {
     WeeklyWorkingTimeCounter(),
     NightWorkCounter(),
     WorkingTimeBreakCounter(),
+    WeeklyRestCounter(),
+    ReducedWeeklyRestsCounter(),
+    WeeklyRestCompensationCounter(),
   ];
 
   final List<Counter> counters;

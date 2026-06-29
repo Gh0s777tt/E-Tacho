@@ -38,6 +38,8 @@ String actionLabel(AppLocalizations l, RequiredActionType type) {
       return l.actionTakeWorkBreak;
     case RequiredActionType.takeDailyRest:
       return l.actionTakeDailyRest;
+    case RequiredActionType.takeWeeklyRest:
+      return l.actionTakeWeeklyRest;
     case RequiredActionType.endDuty:
       return l.actionEndDuty;
     case RequiredActionType.mayResumeWork:
@@ -60,6 +62,8 @@ String notificationBody(AppLocalizations l, String titleKey) {
       return l.notifFortnightly;
     case 'notif.work_break.title':
       return l.notifWorkBreak;
+    case 'notif.weekly_rest.title':
+      return l.notifWeeklyRest;
     case 'notif.may_resume_work.title':
       return l.notifResume;
     default:

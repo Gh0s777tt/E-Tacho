@@ -68,6 +68,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get actionTakeDailyRest => 'Wymagany odpoczynek dzienny';
 
   @override
+  String get actionTakeWeeklyRest => 'Wymagany odpoczynek tygodniowy';
+
+  @override
   String get actionEndDuty => 'Zbliża się koniec doby';
 
   @override
@@ -151,6 +154,9 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get notifResume => 'Możesz wznowić pracę';
+
+  @override
+  String get notifWeeklyRest => 'Zbliża się odpoczynek tygodniowy';
 
   @override
   String get detectDrivingTitle => 'Wykryto jazdę';

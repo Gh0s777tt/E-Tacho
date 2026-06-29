@@ -74,4 +74,6 @@ const Map<CounterType, _Keys> _limitKeys = {
       'notif.fortnightly_driving.body_lead', 'notif.fortnightly_driving.body_now'),
   CounterType.workingTimeBreak: _Keys('notif.work_break.title',
       'notif.work_break.body_lead', 'notif.work_break.body_now'),
+  CounterType.weeklyRest: _Keys('notif.weekly_rest.title',
+      'notif.weekly_rest.body_lead', 'notif.weekly_rest.body_now'),
 };

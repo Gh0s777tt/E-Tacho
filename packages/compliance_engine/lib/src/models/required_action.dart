@@ -12,6 +12,9 @@ enum RequiredActionType {
   /// A daily rest period is required.
   takeDailyRest,
 
+  /// A weekly rest period is required.
+  takeWeeklyRest,
+
   /// The duty window is closing — work must end and the daily rest must start.
   endDuty,
 

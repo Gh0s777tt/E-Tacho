@@ -22,6 +22,9 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
 | Daily rest — regular / reduced | 11h / 9h | 561/2006 art. 8(2),(4) |
 | Reduced daily rests between weekly rests | max 3 | 561/2006 art. 8(4) |
 | Split daily rest (first part) | 3h, then 9h | 561/2006 art. 8(2) |
+| Weekly rest — regular / reduced | 45h / 24h | 561/2006 art. 8(6) |
+| Weekly rest window (6×24h) | 144h | 561/2006 art. 8(6) |
+| Reduced weekly rests per fortnight | max 1 | 561/2006 art. 8(6) |
 | Weekly driving | 56h | 561/2006 art. 6(2) |
 | Two-week driving | 90h | 561/2006 art. 6(3) |
 | Duty window (solo) | 24h | 561/2006 art. 8(2) |
@@ -57,11 +60,16 @@ Confirm every value against the current consolidated text of EU Regulation (EC)
    second part of a split (and so not a reduced rest) when a ≥3h rest preceded it
    earlier in the same day. Confirm the detection (first part 3h..<9h, second
    part ≥9h, driving allowed between). (`reduced_daily_rests_counter.dart`)
+8. **Weekly rest + compensation (art. 8(6)-(9)).** Implemented: the 6×24h window
+   to start the next weekly rest, max one reduced weekly rest per two consecutive
+   weeks, and an *informational* outstanding-compensation total (gross reductions
+   over ~3 weeks). NOT yet enforced: the exact compensation deadline (end of the
+   third following week) and netting off compensation already taken (attached to
+   a ≥9h rest). (`weekly_rest_counter.dart`, `reduced_weekly_rests_counter.dart`,
+   `weekly_rest_compensation_counter.dart`)
 
 ## 3. Known gaps (not yet implemented — by design, MVP)
 
-- **Weekly rest + compensation** (45h / 24h reduced, art. 8; compensation art. 8(6)).
-  Stage 2.
 - **48h average** over the reference period (multi-month). Only the 60h single-
   week cap is enforced. Stage 2.
 - **Crew / multi-manning** (30h duty window, availability handling). Stage 2.

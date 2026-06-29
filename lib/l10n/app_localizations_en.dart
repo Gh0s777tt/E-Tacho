@@ -68,6 +68,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actionTakeDailyRest => 'Daily rest required';
 
   @override
+  String get actionTakeWeeklyRest => 'Weekly rest required';
+
+  @override
   String get actionEndDuty => 'End of day approaching';
 
   @override
@@ -152,6 +155,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifResume => 'You may resume work';
+
+  @override
+  String get notifWeeklyRest => 'Weekly rest is approaching';
 
   @override
   String get detectDrivingTitle => 'Driving detected';

@@ -16,7 +16,10 @@ Initial compliance engine (MVP, solo mode).
   local notifications (lead-time limit alerts + may-resume-work).
 - Split daily rest (3h + 9h, art. 8(2)) recognised as a regular rest, so it does
   not consume a reduced daily-rest allowance (`RulesPack.dailyRestSplitFirst`).
-- 55 unit tests (happy-path + violation per rule, RulesPack parsing,
-  time-zone + midnight crossing, duty reset, notification planning, split rest).
+- Weekly rest (art. 8(6)): 6×24h window counter, reduced-weekly-rests-per-
+  fortnight counter (max 1), and an informational compensation-owed counter.
+- 61 unit tests (happy-path + violation per rule, RulesPack parsing,
+  time-zone + midnight crossing, duty reset, notification planning, split rest,
+  weekly rest + compensation).
 
 All limits are defaults pending legal review — see `docs/LEGAL_VERIFICATION.md`.

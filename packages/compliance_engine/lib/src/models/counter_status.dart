@@ -64,7 +64,7 @@ class CounterStatus extends Equatable {
       level = ComplianceLevel.exceeded;
     } else if (count >= countLimit) {
       level = ComplianceLevel.critical;
-    } else if (count == countLimit - 1) {
+    } else if (count == countLimit - 1 && count > 0) {
       level = ComplianceLevel.approaching;
     } else {
       level = ComplianceLevel.ok;

@@ -40,6 +40,8 @@ class RulesPack extends Equatable {
     required this.dutyWindowCrew,
     required this.weeklyRestRegular,
     required this.weeklyRestReduced,
+    required this.weeklyRestWindow,
+    required this.reducedWeeklyRestsPerFortnightMax,
     required this.weeklyWorkingTimeMax,
     required this.weeklyWorkingTimeAverage,
     required this.nightWorkMaxPerDuty,
@@ -105,6 +107,13 @@ class RulesPack extends Equatable {
   final Duration weeklyRestRegular;
   final Duration weeklyRestReduced;
 
+  /// A weekly rest must START within this window from the end of the previous
+  /// weekly rest (EU 561 art. 8(6): six 24h periods = 144h).
+  final Duration weeklyRestWindow;
+
+  /// Max reduced weekly rests in any two consecutive weeks (EU 561 art. 8(6)).
+  final int reducedWeeklyRestsPerFortnightMax;
+
   // ── Polish Drivers' Working Time Act ─────────────────────────────────────
   /// Single-week working-time ceiling (60h).
   final Duration weeklyWorkingTimeMax;
@@ -155,6 +164,8 @@ class RulesPack extends Equatable {
     dutyWindowCrew: Duration(minutes: 1800),
     weeklyRestRegular: Duration(minutes: 2700),
     weeklyRestReduced: Duration(minutes: 1440),
+    weeklyRestWindow: Duration(minutes: 8640),
+    reducedWeeklyRestsPerFortnightMax: 1,
     weeklyWorkingTimeMax: Duration(minutes: 3600),
     weeklyWorkingTimeAverage: Duration(minutes: 2880),
     nightWorkMaxPerDuty: Duration(minutes: 600),
@@ -204,6 +215,12 @@ class RulesPack extends Equatable {
           _minOr(json, 'weekly_rest_regular_min', defaultEuPl.weeklyRestRegular),
       weeklyRestReduced:
           _minOr(json, 'weekly_rest_reduced_min', defaultEuPl.weeklyRestReduced),
+      weeklyRestWindow: _minOr(
+          json, 'weekly_rest_window_min', defaultEuPl.weeklyRestWindow),
+      reducedWeeklyRestsPerFortnightMax: _intOr(
+          json,
+          'reduced_weekly_rests_per_fortnight_max',
+          defaultEuPl.reducedWeeklyRestsPerFortnightMax),
       weeklyWorkingTimeMax: _minOr(
           json, 'weekly_working_time_max_min', defaultEuPl.weeklyWorkingTimeMax),
       weeklyWorkingTimeAverage: _minOr(json, 'weekly_working_time_average_min',
@@ -247,6 +264,9 @@ class RulesPack extends Equatable {
         'duty_window_crew_min': dutyWindowCrew.inMinutes,
         'weekly_rest_regular_min': weeklyRestRegular.inMinutes,
         'weekly_rest_reduced_min': weeklyRestReduced.inMinutes,
+        'weekly_rest_window_min': weeklyRestWindow.inMinutes,
+        'reduced_weekly_rests_per_fortnight_max':
+            reducedWeeklyRestsPerFortnightMax,
         'weekly_working_time_max_min': weeklyWorkingTimeMax.inMinutes,
         'weekly_working_time_average_min': weeklyWorkingTimeAverage.inMinutes,
         'night_work_max_between_rests_min': nightWorkMaxPerDuty.inMinutes,
@@ -299,8 +319,13 @@ class RulesPack extends Equatable {
           'two_weekly_driving_max_min must be >= weekly_driving_max_min');
     }
     if (extendedDrivingDaysPerWeekMax < 0 ||
-        reducedDailyRestsBetweenWeeklyMax < 0) {
+        reducedDailyRestsBetweenWeeklyMax < 0 ||
+        reducedWeeklyRestsPerFortnightMax < 0) {
       throw const RulesPackFormatException('count limits must be >= 0');
+    }
+    if (weeklyRestWindow <= Duration.zero) {
+      throw const RulesPackFormatException(
+          'weekly_rest_window_min must be positive');
     }
     if (nightWindowEnd <= nightWindowStart) {
       // TODO: support a night window that wraps past midnight.
@@ -340,6 +365,11 @@ class RulesPack extends Equatable {
     return v.toInt();
   }
 
+  static int _intOr(Map<String, dynamic> j, String key, int fallback) {
+    final v = j[key];
+    return v is num ? v.toInt() : fallback;
+  }
+
   @override
   List<Object?> get props => [
         version,
@@ -359,6 +389,8 @@ class RulesPack extends Equatable {
         dutyWindowCrew,
         weeklyRestRegular,
         weeklyRestReduced,
+        weeklyRestWindow,
+        reducedWeeklyRestsPerFortnightMax,
         weeklyWorkingTimeMax,
         weeklyWorkingTimeAverage,
         nightWorkMaxPerDuty,

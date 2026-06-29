@@ -212,6 +212,12 @@ abstract class AppLocalizations {
   /// **'Daily rest required'**
   String get actionTakeDailyRest;
 
+  /// No description provided for @actionTakeWeeklyRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly rest required'**
+  String get actionTakeWeeklyRest;
+
   /// No description provided for @actionEndDuty.
   ///
   /// In en, this message translates to:
@@ -373,6 +379,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You may resume work'**
   String get notifResume;
+
+  /// No description provided for @notifWeeklyRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly rest is approaching'**
+  String get notifWeeklyRest;
 
   /// No description provided for @detectDrivingTitle.
   ///

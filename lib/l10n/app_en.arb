@@ -19,6 +19,7 @@
   "actionTakeBreak": "Break required",
   "actionTakeWorkBreak": "Work break required",
   "actionTakeDailyRest": "Daily rest required",
+  "actionTakeWeeklyRest": "Weekly rest required",
   "actionEndDuty": "End of day approaching",
   "actionMayResumeWork": "You may resume work",
   "actionIn": "{label} in {time}",
@@ -57,6 +58,7 @@
   "notifFortnightly": "Two-week driving limit is approaching",
   "notifWorkBreak": "A work break is due",
   "notifResume": "You may resume work",
+  "notifWeeklyRest": "Weekly rest is approaching",
   "detectDrivingTitle": "Driving detected",
   "detectDrivingBody": "Start driving from {time}?",
   "@detectDrivingBody": {
