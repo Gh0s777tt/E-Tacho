@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Compliance engine (pure Dart)
+        working-directory: packages/compliance_engine
+        run: |
+          dart pub get
+          dart analyze
+          dart test
+
+      - name: App (Flutter)
+        run: |
+          flutter pub get
+          flutter analyze
+          flutter test
