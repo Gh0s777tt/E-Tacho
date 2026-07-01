@@ -83,6 +83,24 @@ flutter run -d chrome        # quick preview (no notifications; in-memory storag
 flutter run                  # Android device/emulator (full features)
 ```
 
+### Supabase auth (optional)
+
+Without configuration the app uses an in-memory auth stub. To use real Supabase
+auth, pass your project URL and anon public key at run time — **never commit
+them**:
+
+```bash
+flutter run \
+  --dart-define=SUPABASE_URL=https://YOUR-PROJECT.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=YOUR_ANON_PUBLIC_KEY
+```
+
+Find both in Supabase Dashboard → Project Settings → API. The anon key is a
+public client key (protected by Row Level Security) — safe to ship in the app.
+Never use the service-role key or a management/personal access token here.
+Google/Apple sign-in additionally needs those providers configured in Supabase
+and platform deep links.
+
 ### Notes
 - **Notifications** require a real Android/iOS device or emulator to verify
   delivery (Android needs the notification + exact-alarm permissions already
