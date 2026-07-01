@@ -9,6 +9,7 @@ import 'src/auth/supabase_auth_service.dart';
 import 'src/auth/supabase_config.dart';
 import 'src/data/preferences_store.dart';
 import 'src/providers.dart';
+import 'src/sync/supabase_sync_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,9 +29,12 @@ Future<void> main() async {
       // ignore: deprecated_member_use
       anonKey: SupabaseConfig.anonKey,
     );
+    final client = Supabase.instance.client;
     overrides.add(
-      authServiceProvider
-          .overrideWithValue(SupabaseAuthService(Supabase.instance.client)),
+      authServiceProvider.overrideWithValue(SupabaseAuthService(client)),
+    );
+    overrides.add(
+      syncServiceProvider.overrideWithValue(SupabaseSyncService(client)),
     );
   }
 

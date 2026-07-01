@@ -8,6 +8,7 @@ import 'home/home_screen.dart';
 import 'notifications/notification_scheduler.dart';
 import 'onboarding/onboarding_screen.dart';
 import 'providers.dart';
+import 'sync/sync_scheduler.dart';
 import 'theme.dart';
 import 'widget/home_widget_updater.dart';
 
@@ -27,7 +28,9 @@ class ETachoApp extends ConsumerWidget {
     } else {
       home = const NotificationScheduler(
         child: DrivingDetectionListener(
-          child: HomeWidgetUpdater(child: HomeScreen()),
+          child: HomeWidgetUpdater(
+            child: SyncScheduler(child: HomeScreen()),
+          ),
         ),
       );
     }

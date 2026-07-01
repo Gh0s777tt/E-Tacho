@@ -9,6 +9,7 @@ import 'data/persistent_repository.dart';
 import 'data/preferences_store.dart';
 import 'detection/driving_detector.dart';
 import 'notifications/notification_service.dart';
+import 'sync/sync_service.dart';
 import 'widget/home_widget_service.dart';
 
 /// Ticks once per second so the UI re-evaluates the (pure) engine.
@@ -208,6 +209,13 @@ final drivingDetectorProvider = Provider<DrivingDetector>((ref) {
 
 final homeWidgetServiceProvider =
     Provider<HomeWidgetService>((ref) => HomeWidgetService());
+
+// ── Sync ────────────────────────────────────────────────────────────────────
+
+/// No-op by default; overridden in main with a Supabase-backed service when
+/// configured.
+final syncServiceProvider =
+    Provider<SyncService>((ref) => const NoopSyncService());
 
 // ── Auth ────────────────────────────────────────────────────────────────────
 
