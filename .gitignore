@@ -60,6 +60,7 @@ Thumbs.db
 .env.*
 !.env.example
 *.env
+env.json
 secrets.dart
 **/supabase/.env
 service-account*.json

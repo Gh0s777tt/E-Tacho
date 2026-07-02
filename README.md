@@ -95,6 +95,10 @@ flutter run \
   --dart-define=SUPABASE_ANON_KEY=YOUR_ANON_PUBLIC_KEY
 ```
 
+Or copy `env.example.json` to `env.json` (git-ignored) and run
+`flutter run --dart-define-from-file=env.json`. Full walkthrough:
+[`docs/SUPABASE_SETUP.md`](docs/SUPABASE_SETUP.md).
+
 Find both in Supabase Dashboard → Project Settings → API. The anon key is a
 public client key (protected by Row Level Security) — safe to ship in the app.
 Never use the service-role key or a management/personal access token here.
